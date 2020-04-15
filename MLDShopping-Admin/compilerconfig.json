@@ -1,0 +1,18 @@
+﻿[
+  {
+    "outputFile": "wwwroot/lib/bootstrap/scss/bootstrap.css",
+    "inputFile": "wwwroot/lib/bootstrap/scss/bootstrap.scss"
+  },
+  {
+    "outputFile": "wwwroot/lib/bootswatch/_bootswatch.css",
+    "inputFile": "wwwroot/lib/bootswatch/_bootswatch.scss"
+  },
+  {
+    "outputFile": "wwwroot/lib/bootswatch/_variables.css",
+    "inputFile": "wwwroot/lib/bootswatch/_variables.scss"
+  },
+  {
+    "outputFile": "wwwroot/css/style.css",
+    "inputFile": "wwwroot/css/style.scss"
+  }
+]
