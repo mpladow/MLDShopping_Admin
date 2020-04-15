@@ -17,7 +17,7 @@ $gray-800: #333 !default;
 $gray-900: #222 !default;
 $black:    #000 !default;
 
-$blue:    #158CBA !default;
+$blue: #036085 !default;
 $indigo:  #6610f2 !default;
 $purple:  #6f42c1 !default;
 $pink:    #e83e8c !default;
@@ -36,6 +36,7 @@ $warning:       $yellow !default;
 $danger:        $red !default;
 $light:         $gray-100 !default;
 $dark:          $gray-700 !default;
+$primary-dark: darken($blue, 10!default);
 
 $yiq-contrasted-threshold: 200 !default;
 

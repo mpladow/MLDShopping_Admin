@@ -42,7 +42,7 @@
   height: 200px;
   top: 0;
   width: 100%;
-  background: #158CBA; }
+  background: #036085; }
 
 .sidebar {
   z-index: 999999;
@@ -50,7 +50,7 @@
   padding-right: 0; }
 
 .nav-link.active {
-  background-color: #158CBA;
+  background-color: #036085;
   color: #f0f0f0; }
 
 header {
@@ -69,8 +69,16 @@ header {
   color: #f0f0f0; }
 
 .list-group-item.active {
-  background: #158CBA; }
+  background: #036085; }
 
-.card-header {
-  background-color: #158CBA;
-  color: #f0f0f0; }
+.card {
+  border-radius: 0; }
+  .card .card-header {
+    background-color: #036085;
+    color: #f0f0f0; }
+
+.btn {
+  border-radius: 0px; }
+  .btn.btn-primary {
+    background-color: #023c53;
+    color: white; }

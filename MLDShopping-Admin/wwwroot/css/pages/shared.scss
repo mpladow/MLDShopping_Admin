@@ -1,7 +1,9 @@
 ﻿@import "../abstract/variables";
+
 body {
     background-color: $gray-100;
 }
+
 .navbar {
     /*height: 200px;*/
     &.fixed-top {
@@ -25,9 +27,11 @@ body {
         background: none;
         color: $secondary;
         border: none;
-        &:active{
+
+        &:active {
             border: none;
         }
+
         &::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
             color: $secondary;
             opacity: 1; /* Firefox */
@@ -42,24 +46,28 @@ body {
         }
     }
 }
-.background-header{
+
+.background-header {
     position: fixed;
     height: 200px;
     top: 0;
     width: 100%;
     background: $primary;
 }
-.sidebar{
+
+.sidebar {
     z-index: 999999;
     padding-left: 0;
     padding-right: 0;
 }
-.nav-link{
-    &.active{
+
+.nav-link {
+    &.active {
         background-color: $primary;
         color: $secondary;
     }
 }
+
 header {
     padding-bottom: 10px;
     margin-bottom: 15px;
@@ -77,15 +85,30 @@ header {
         color: #333;
     }
 }
-.page-header{
+
+.page-header {
     color: $secondary;
 }
-.list-group-item{
-    &.active{
+
+.list-group-item {
+    &.active {
         background: $primary;
     }
 }
-.card-header{
-    background-color: $primary;
-    color: $secondary;
+
+.card {
+    border-radius: 0;
+    .card-header {
+        background-color: $primary;
+        color: $secondary;
+    }
+}
+
+.btn {
+    border-radius: 0px;
+
+    &.btn-primary {
+        background-color: $primary-dark;
+        color: white;
+    }
 }
