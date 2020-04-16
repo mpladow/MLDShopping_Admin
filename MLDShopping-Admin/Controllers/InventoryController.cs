@@ -12,13 +12,14 @@ namespace MLDShopping_Admin.Controllers
         public IActionResult Index()
         {
             var model = new List<ProductVM>();
-            var ITEMTEST = new ProductVM() { ProductId = 1, Image = "noneYet", Price = 10.0, Quantity = 2, Category = "Test", Name = "Test Item", Description = "None yet" };
             var ITEMTEST2 = new ProductVM() { ProductId = 2, Image = "noneYet", Price = 10.0, Quantity = 2, Category = "Test", Name = "Test Item", Description = "None yet" };
             var ITEMTEST3 = new ProductVM() { ProductId = 3, Image = "noneYet", Price = 10.0, Quantity = 2, Category = "Test", Name = "Test Item", Description = "None yet" };
 
+            for (int i = 0; i < 15; i++)
+            {
+            var ITEMTEST = new ProductVM() { ProductId = i, Image = "noneYet", Price = 10.0, Quantity = 2, Category = "Test", Name = "Test Item", Description = "None yet" };
             model.Add(ITEMTEST);
-            model.Add(ITEMTEST2);
-            model.Add(ITEMTEST3);
+            }
 
             ViewData["Title"] = "Inventory";
             return View(model);
