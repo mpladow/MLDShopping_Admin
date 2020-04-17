@@ -7,13 +7,18 @@
     <meta name="author" content="">
     <link rel="icon" href="/docs/4.0/assets/img/favicons/favicon.ico">
 
-    <title>Admin</title>
+    <title>MLDev Admin</title>
     <!-- Bootstrap core CSS -->
     <link href="~/lib/bootstrap/scss/bootstrap.min.css" rel="stylesheet" />
     <link href="~/lib/fontawesome5/css/all.css" rel="stylesheet" />
 
     <!-- Custom styles for this template -->
     <link href="~/css/style.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.20/af-2.3.4/b-1.6.1/cr-1.5.2/r-2.2.3/sl-1.3.1/datatables.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" />
+
+
+
 </head>
 <body>
     <nav class="navbar navbar-dark fixed-top pt-1 pb-1">
@@ -39,7 +44,7 @@
         <nav class="col-1 col-md-2 pl-0 pr-0 collapse width show sidebar" id="sidebar">
             <div class="sidebar-sticky">
                 <div class="sidebar-header d-none d-md-inline-block w-100 p-3">Admin</div>
-                <div class="card text-center">
+                <div class="card text-center border-0">
                     <div class="text-center pt-3">
                         <img src="~/img/daan-everts-portrait.jpg" class="img-profile card-img-top rounded-circle" alt="user">
                     </div>
@@ -54,7 +59,7 @@
                     <li class="pl-2 sidebar-separator-title text-muted d-flex align-items-center menu-collapsed">
                         <small class="d-none d-md-inline-block">MAIN MENU</small>
                     </li>
-                    <li class="nav-item active">
+                    <li class="nav-item ">
                         <a class="nav-link" href="/home">
                             <span data-feather="home"></span>
                             <i class="fa fa-home"></i> <span class="d-none d-md-inline-block">Dashboard</span>
@@ -73,10 +78,13 @@
                             <i class="fa fa-arrow-circle-left"></i> <span class="d-none d-md-inline-block">Products</span>
                         </a>
                     </li>
+                    <li class="pl-2 sidebar-separator-title text-muted d-flex align-items-center menu-collapsed">
+                        <small class="d-none d-md-inline-block">ADMIN</small>
+                    </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="/account">
                             <span data-feather="users"></span>
-                            <i class="fa fa-user"></i> <span class="d-none d-md-inline-block">Customers</span>
+                            <i class="fa fa-user"></i> <span class="d-none d-md-inline-block">Accounts</span>
                         </a>
                     </li>
                 </ul>
@@ -122,7 +130,7 @@
         <div class="row">
             <div class="col-1 col-md-2 pl-0 pr-0"></div>
             <main role="main" class="pb-1 pt-4 col-11 col-md-10">
-                <div class="container-fluid">
+                <div class="container-fluid" id="renderBody">
                     @*<a href="#" data-target="#sidebar" data-toggle="collapse"><i class="fa fa-bars fa-lg py-2 p-1"></i></a>*@
 
                     @RenderBody()
@@ -157,6 +165,7 @@
     </environment>
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script>
+
         $(document).ready(function () {
             console.log(location.pathname);
             $(document).ready(function () {
@@ -164,9 +173,14 @@
                 $('.sidebar .nav-item').find('a[href="' + location.pathname + '"]')
                     .closest('li').addClass('active');
             });
-    });
+        });
+
     </script>
+
     @RenderSection("Scripts", required: false)
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.20/af-2.3.4/b-1.6.1/cr-1.5.2/r-2.2.3/sl-1.3.1/datatables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
+
 </body>
 </html>
 

@@ -92,6 +92,9 @@ header {
 
 .btn {
   border-radius: 0px; }
+  .btn:active {
+    border: 1px solid #555;
+    box-shadow: none; }
   .btn.btn-primary {
     background-color: #023c53;
     color: white; }
@@ -176,3 +179,6 @@ header {
   bottom: 0;
   right: 0;
   font-size: 0.8em; }
+
+.dataTables_wrapper {
+  width: 100%; }

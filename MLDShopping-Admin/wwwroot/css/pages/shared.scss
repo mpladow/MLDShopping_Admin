@@ -120,7 +120,10 @@ header {
 
 .btn {
     border-radius: 0px;
-
+    &:active{
+        border: 1px solid $dark;
+        box-shadow: none;
+    }
     &.btn-primary {
         background-color: $primary-dark;
         color: white;
@@ -228,4 +231,8 @@ header {
     bottom: 0;
     right: 0;
     font-size: 0.8em;
+}
+// datatables styling
+.dataTables_wrapper{
+    width: 100%;
 }

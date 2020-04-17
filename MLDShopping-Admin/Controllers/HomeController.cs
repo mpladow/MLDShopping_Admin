@@ -12,6 +12,7 @@ namespace MLDShopping_Admin.Controllers
     {
         public IActionResult Index()
         {
+            var myView = View();
             ViewBag.Title = "Dashboard";
             return View();
         }
