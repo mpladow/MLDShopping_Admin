@@ -1,16 +1,76 @@
 ﻿
 @{
     @model MLDShopping_Admin.Models.AccountVM;
+    var title = Model == null || Model.AccountId == 0 ? "New Account" : "Edit Account";
 
 }
 
-<!DOCTYPE html>
+<section class="content-header">
+    <h1>
+        @title
+    </h1>
+</section>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Edit</title>
-</head>
-<body>
-</body>
-</html>
+<section class="content container-fluid">
+    <div class="row mt-3">
+        <div class="col-12">
+            <div class="row">
+                <div class="card card-primary">
+                    <!-- /.card-header -->
+                    <!-- form start -->
+                    <form role="form">
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Email address</label>
+                                <input type="email" class="form-control" id="Email" placeholder="Enter email" value="@Model.Email">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Password</label>
+                                <input type="password" class="form-control" id="Password" placeholder="Password">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputFile">User Image</label>
+                                <div class="input-group">
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" id="userImage">
+                                        <label class="custom-file-label" for="userImage">Choose file</label>
+                                    </div>
+                                    <div class="input-group-append">
+                                        <span class="input-group-text" id="">Upload</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group" data-select2-id="46">
+                                <label for="js-example-basic-multiple">
+                                    Select Permissions
+                                    <select class="js-example-basic-multiple js-states form-control" name="states[]" multiple="multiple">
+                                        <option value="AL">Alabama</option>
+                                        ...
+                                        <option value="WY">Wyoming</option>
+                                    </select>
+                                </label>
+                            </div>
+                        </div>
+                        <!-- /.card-body -->
+
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+@section scripts {
+    <!-- DataTables -->
+    <script language="javascript">
+        $(document).ready(function () {
+            $('.js-example-basic-multiple').select2();
+
+        })
+    </script>
+
+
+}

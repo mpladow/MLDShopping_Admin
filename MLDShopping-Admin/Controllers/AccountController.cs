@@ -72,14 +72,15 @@ namespace MLDShopping_Admin.Controllers
             var entityInDb = _db.Accounts.Find(id);
             if (entityInDb != null)
             {
+                model = _mapper.Map<AccountVM>(entityInDb);
                 model.AccountId = entityInDb.AccountId;
                 model.FirstName = entityInDb.FirstName;
                 model.LastName = entityInDb.LastName;
                 model.Email = entityInDb.Email;
                 model.CreatedAt = entityInDb.CreatedAt.ToShortDateString();
-                model.Permissions = entityInDb.Permissions.ToString();
+                model.Permissions = entityInDb.AccountPermissions.ToString();
             }
-            return View(entityInDb);
+            return View(model);
         }
         [HttpPost]
         public IActionResult Edit(AccountVM account)

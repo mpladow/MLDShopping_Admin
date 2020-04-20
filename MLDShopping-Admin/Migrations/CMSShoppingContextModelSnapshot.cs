@@ -41,28 +41,24 @@ namespace MLDShopping_Admin.Migrations
                         .IsRequired()
                         .HasMaxLength(255);
 
+                    b.Property<string>("Password");
+
+                    b.Property<string>("ResetToken");
+
                     b.HasKey("AccountId");
 
-                    b.ToTable("Account");
+                    b.ToTable("Accounts");
                 });
 
             modelBuilder.Entity("MLDShopping_Admin.Entities.AccountPermission", b =>
                 {
-                    b.Property<int>("AccountPermissionId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<int>("AccountId");
 
-                    b.Property<string>("PermissionId");
+                    b.Property<int>("PermissionId");
 
-                    b.Property<int?>("PermissionId1");
+                    b.HasKey("AccountId", "PermissionId");
 
-                    b.HasKey("AccountPermissionId");
-
-                    b.HasIndex("AccountId");
-
-                    b.HasIndex("PermissionId1");
+                    b.HasIndex("PermissionId");
 
                     b.ToTable("AccountPermission");
                 });
@@ -73,36 +69,27 @@ namespace MLDShopping_Admin.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("AccountId");
-
                     b.Property<string>("Description");
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .IsRequired();
 
                     b.HasKey("PermissionId");
 
-                    b.HasIndex("AccountId");
-
-                    b.ToTable("Permission");
+                    b.ToTable("Permissions");
                 });
 
             modelBuilder.Entity("MLDShopping_Admin.Entities.AccountPermission", b =>
                 {
                     b.HasOne("MLDShopping_Admin.Entities.Account", "Account")
-                        .WithMany()
+                        .WithMany("AccountPermissions")
                         .HasForeignKey("AccountId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("MLDShopping_Admin.Entities.Permission", "Permission")
-                        .WithMany()
-                        .HasForeignKey("PermissionId1");
-                });
-
-            modelBuilder.Entity("MLDShopping_Admin.Entities.Permission", b =>
-                {
-                    b.HasOne("MLDShopping_Admin.Entities.Account")
-                        .WithMany("Permissions")
-                        .HasForeignKey("AccountId");
+                        .WithMany("AccountPermissions")
+                        .HasForeignKey("PermissionId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }
