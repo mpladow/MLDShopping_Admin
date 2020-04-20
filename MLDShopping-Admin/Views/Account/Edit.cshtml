@@ -2,6 +2,7 @@
 @{
     @model MLDShopping_Admin.Models.AccountVM;
     var title = Model == null || Model.AccountId == 0 ? "New Account" : "Edit Account";
+    var message = ViewData["message"];
 
 }
 
@@ -18,18 +19,31 @@
                 <div class="card card-primary">
                     <!-- /.card-header -->
                     <!-- form start -->
-                    <form role="form">
+                    <form role="form" method="post">
                         <div class="card-body">
                             <div class="form-group">
-                                <label for="exampleInputEmail1">Email address</label>
-                                <input type="email" class="form-control" id="Email" placeholder="Enter email" value="@Model.Email">
+                                <label>Account Id</label>
+                                <span class="form-control" id="AccountId" placeholder="Enter email">@Model.AccountId</span>
+                                @Html.HiddenFor(x=>x.AccountId)
                             </div>
                             <div class="form-group">
-                                <label for="exampleInputPassword1">Password</label>
-                                <input type="password" class="form-control" id="Password" placeholder="Password">
+                                <label asp-for="Email">Email address</label>
+                                <input asp-for="Email" class="form-control" id="Email" placeholder="Enter email" required>
                             </div>
                             <div class="form-group">
-                                <label for="exampleInputFile">User Image</label>
+                                <label asp-for="FirstName">First Name</label>
+                                <input asp-for="FirstName" type="text" class="form-control" id="firstname" placeholder="Enter First Name" required>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="LastName">Last Name</label>
+                                <input asp-for="LastName" type="text" class="form-control" id="lastname" placeholder="Enter Last Name" required>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Password">Password</label>
+                                <input asp-for="Password" type="password" class="form-control" id="Password" placeholder="Password">
+                            </div>
+                            <div class="form-group">
+                                <label for="userImage">User Image</label>
                                 <div class="input-group">
                                     <div class="custom-file">
                                         <input type="file" class="custom-file-input" id="userImage">
@@ -40,21 +54,31 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group" data-select2-id="46">
-                                <label for="js-example-basic-multiple">
+                            <div class="form-group" data-select2-id="Permissions">
+
+                                <label asp-for="Permissions">
                                     Select Permissions
-                                    <select class="js-example-basic-multiple js-states form-control" name="states[]" multiple="multiple">
-                                        <option value="AL">Alabama</option>
-                                        ...
-                                        <option value="WY">Wyoming</option>
-                                    </select>
                                 </label>
+                                @Html.ListBoxFor(m => m.PermissionIds, Model.SelectList, new { @class = "form-control m-select2 js-states", multiple = "multiple", id = "PermissionIds" })
+
+
+                                @*<label asp-for="Permissions">
+                Select Permissions
+                <select asp-for="Permissions" class="js-example-basic-multiple js-states form-control" multiple="multiple">
+                    @foreach (var p in Model.SelectList)
+                    {
+                        <option value="@p.Value">@p.Text</option>
+                    }
+                </select>
+            </label>*@
                             </div>
+                            <div><p>@message</p></div>
                         </div>
                         <!-- /.card-body -->
 
                         <div class="card-footer">
                             <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="submit" class="btn btn-danger" formaction="delete/@Model.AccountId">Delete</button>
                         </div>
                     </form>
                 </div>
@@ -67,7 +91,7 @@
     <!-- DataTables -->
     <script language="javascript">
         $(document).ready(function () {
-            $('.js-example-basic-multiple').select2();
+            $('#PermissionIds').select2();
 
         })
     </script>

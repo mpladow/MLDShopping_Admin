@@ -13,7 +13,7 @@ namespace MLDShopping_Admin.Entities
         }
 
         public DbSet<Account> Accounts { get; set; }
-        //public DbSet<AccountPermission> AccountPermissions { get; set; }
+        public DbSet<AccountPermission> AccountPermissions { get; set; }
         public DbSet<Permission> Permissions { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

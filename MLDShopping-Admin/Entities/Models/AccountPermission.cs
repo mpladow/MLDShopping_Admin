@@ -9,9 +9,9 @@ namespace MLDShopping_Admin.Entities
 {
     public class AccountPermission
     {
-        //[Key]
-        //[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        //public int AccountPermissionId { get; set; }
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int AccountPermissionId { get; set; }
         public int AccountId { get; set; }
         public int PermissionId { get; set; }
         public virtual Account Account { get; set; }
