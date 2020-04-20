@@ -14,5 +14,9 @@
   {
     "outputFile": "wwwroot/css/style.css",
     "inputFile": "wwwroot/css/style.scss"
+  },
+  {
+    "outputFile": "wwwroot/dist/scss/AdminLTE.css",
+    "inputFile": "wwwroot/dist/scss/AdminLTE.scss"
   }
 ]

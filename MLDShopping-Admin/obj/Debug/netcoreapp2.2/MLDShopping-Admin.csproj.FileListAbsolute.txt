@@ -35,3 +35,4 @@ C:\Users\mplad\source\repos\MLDShopping-Admin\MLDShopping-Admin\obj\Debug\netcor
 C:\Users\mplad\source\repos\MLDShopping-Admin\MLDShopping-Admin\obj\Debug\netcoreapp2.2\Razor\Views\Account\Index.g.cshtml.cs
 C:\Users\mplad\source\repos\MLDShopping-Admin\MLDShopping-Admin\obj\Debug\netcoreapp2.2\Razor\Views\Inventory\Edit.g.cshtml.cs
 C:\Users\mplad\source\repos\MLDShopping-Admin\MLDShopping-Admin\obj\Debug\netcoreapp2.2\Razor\Views\Account\Edit.g.cshtml.cs
+C:\Users\mplad\source\repos\MLDShopping-Admin\MLDShopping-Admin\obj\Debug\netcoreapp2.2\Razor\Views\Shared\_MainMenu.g.cshtml.cs

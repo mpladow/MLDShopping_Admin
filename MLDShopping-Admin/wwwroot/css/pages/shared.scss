@@ -4,108 +4,14 @@ body {
     background-color: $gray-100;
 }
 
-.navbar {
-    /*height: 200px;*/
-    &.fixed-top {
-        align-items: start;
+.main-header {
+    .navbar {
+        max-height: 50px;
+        padding: 0 1rem;
     }
-    /*.navbar-nav {
-        min-height: 33px;
-        margin-bottom: 0;
-        border-radius: 0;
 
-
-        li {
-            a, .navbar-brand {
-                height: 33px;
-                padding-top: 4px;
-                padding-bottom: 0;
-            }
-        }
-    }*/
-    .nav-search {
-        background: none;
-        color: $secondary;
-        border: none;
-
-        &:active {
-            border: none;
-        }
-
-        &::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
-            color: $secondary;
-            opacity: 1; /* Firefox */
-        }
-
-        &:-ms-input-placeholder { /* Internet Explorer 10-11 */
-            color: $secondary;
-        }
-
-        &::-ms-input-placeholder { /* Microsoft Edge */
-            color: $secondary;
-        }
-    }
-}
-
-.background-header {
-    position: fixed;
-    height: 200px;
-    top: 0;
-    width: 100%;
-    background: $primary;
-}
-
-.sidebar {
-    z-index: 999999;
-    padding-left: 0;
-    padding-right: 0;
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100vh;
-
-    .sidebar-header {
-        background: $primary;
-        color: $white;
-    }
-}
-
-.nav-item {
-    &.active {
-        background-color: $primary;
-        color: $secondary;
-
-        a {
-            color: white;
-        }
-    }
-}
-
-header {
-    padding-bottom: 10px;
-    margin-bottom: 15px;
-
-    .create {
-        padding-top: 20px;
-    }
-}
-
-.breadcrumb {
-    background: $secondary;
-    color: #333;
-
-    a {
-        color: #333;
-    }
-}
-
-.page-header {
-    color: $secondary;
-}
-
-.list-group-item {
-    &.active {
-        background: $primary;
+    .sidebar-toggle {
+        padding: 12.5px 12.5px;
     }
 }
 
@@ -130,101 +36,12 @@ header {
     }
 }
 
-.collapse-button {
+/*.collapse-button {
     position: absolute;
     top: 0;
     margin-left: 0.5em;
-}
+}*/
 // Sidebar
-#sidebar {
-    overflow: hidden;
-    z-index: 999999;
-    background: $white;
-}
-
-#sidebar .list-group {
-    /*min-width: 300px;*/
-    min-height: 100vh;
-}
-
-#sidebar .list-group-item {
-    border-radius: 0;
-    white-space: nowrap;
-}
-
-.img-profile {
-    height: 50px;
-    width: 50px;
-}
-
-@media (max-width:768px) {
-    #sidebar {
-        /*min-width: 35px;
-        max-width: 40px;*/
-        overflow-y: auto;
-        overflow-x: visible;
-        transition: all 0.25s ease;
-        transform: translateX(-45px);
-        /*position: fixed;*/
-        .img-profile {
-            width: 25px;
-            height: 25px;
-            margin-bottom: .7em;
-        }
-    }
-
-    #sidebar.show {
-        transform: translateX(0);
-    }
-
-    #sidebar::-webkit-scrollbar {
-        width: 0px;
-    }
-
-    #sidebar, #sidebar .list-group {
-        min-width: 35px;
-        overflow: visible;
-    }
-    /* overlay sub levels on small screens */
-    #sidebar .list-group .collapse.show, #sidebar .list-group .collapsing {
-        position: relative;
-        z-index: 1;
-        width: 190px;
-        top: 0;
-    }
-
-    #sidebar ul > li > a {
-        text-align: center;
-        padding: .75rem .5rem;
-    }
-    /* hide caret icons of top level when collapsed */
-    #sidebar .list-group > .list-group-item[aria-expanded="true"]::after,
-    #sidebar .list-group > .list-group-item[aria-expanded="false"]::after {
-        display: none;
-    }
-}
-
-.collapse.show {
-    visibility: visible;
-}
-
-.collapsing {
-    visibility: visible;
-    height: 0;
-    -webkit-transition-property: height, visibility;
-    transition-property: height, visibility;
-    -webkit-transition-timing-function: ease-out;
-    transition-timing-function: ease-out;
-}
-
-.collapsing.width {
-    -webkit-transition-property: width, visibility;
-    transition-property: width, visibility;
-    width: 0;
-    height: 100%;
-    -webkit-transition-timing-function: ease-out;
-    transition-timing-function: ease-out;
-}
 
 .footer {
     position: fixed;
@@ -236,3 +53,15 @@ header {
 .dataTables_wrapper{
     width: 100%;
 }
+/*.sidebar-menu{
+    width: 230px;
+}
+.navbar{
+    padding: 0;
+    height: 50px;
+
+}
+
+.sidebar-form{
+    width: 230px;
+}*/
