@@ -3,8 +3,6 @@ C:\Users\mplad\source\repos\MLDShopping-Admin\MLDShopping-Admin\obj\Debug\netcor
 C:\Users\mplad\source\repos\MLDShopping-Admin\MLDShopping-Admin\obj\Debug\netcoreapp3.1\MLDShopping-Admin.AssemblyInfo.cs
 C:\Users\mplad\source\repos\MLDShopping-Admin\MLDShopping-Admin\obj\Debug\netcoreapp3.1\MLDShopping-Admin.TagHelpers.input.cache
 C:\Users\mplad\source\repos\MLDShopping-Admin\MLDShopping-Admin\obj\Debug\netcoreapp3.1\MLDShopping-Admin.TagHelpers.output.cache
-C:\Users\mplad\source\repos\MLDShopping-Admin\MLDShopping-Admin\obj\Debug\netcoreapp3.1\MLDShopping-Admin.csproj.CoreCompileInputs.cache
-C:\Users\mplad\source\repos\MLDShopping-Admin\MLDShopping-Admin\obj\Debug\netcoreapp3.1\MLDShopping-Admin.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\mplad\source\repos\MLDShopping-Admin\MLDShopping-Admin\obj\Debug\netcoreapp3.1\MLDShopping-Admin.dll
 C:\Users\mplad\source\repos\MLDShopping-Admin\MLDShopping-Admin\obj\Debug\netcoreapp3.1\MLDShopping-Admin.pdb
 C:\Users\mplad\source\repos\MLDShopping-Admin\MLDShopping-Admin\obj\Debug\netcoreapp3.1\MLDShopping-Admin.RazorCoreGenerate.cache
@@ -105,3 +103,9 @@ C:\Users\mplad\source\repos\MLDShopping-Admin\MLDShopping-Admin\obj\Debug\netcor
 C:\Users\mplad\source\repos\MLDShopping-Admin\MLDShopping-Admin\obj\Debug\netcoreapp3.1\staticwebassets\MLDShopping-Admin.StaticWebAssets.Manifest.cache
 C:\Users\mplad\source\repos\MLDShopping-Admin\MLDShopping-Admin\obj\Debug\netcoreapp3.1\staticwebassets\MLDShopping-Admin.StaticWebAssets.xml
 C:\Users\mplad\source\repos\MLDShopping-Admin\MLDShopping-Admin\obj\Debug\netcoreapp3.1\MLDShopping-Admin.genruntimeconfig.cache
+C:\Users\mplad\source\repos\MLDShopping-Admin\MLDShopping-Admin\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Cryptography.Internal.dll
+C:\Users\mplad\source\repos\MLDShopping-Admin\MLDShopping-Admin\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+C:\Users\mplad\source\repos\MLDShopping-Admin\MLDShopping-Admin\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Identity.Core.dll
+C:\Users\mplad\source\repos\MLDShopping-Admin\MLDShopping-Admin\bin\Debug\netcoreapp3.1\Microsoft.AspNet.Identity.Core.dll
+C:\Users\mplad\source\repos\MLDShopping-Admin\MLDShopping-Admin\obj\Debug\netcoreapp3.1\MLDShopping-Admin.csproj.CoreCompileInputs.cache
+C:\Users\mplad\source\repos\MLDShopping-Admin\MLDShopping-Admin\obj\Debug\netcoreapp3.1\MLDShopping-Admin.MvcApplicationPartsAssemblyInfo.cache

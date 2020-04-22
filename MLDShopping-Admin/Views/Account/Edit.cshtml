@@ -1,7 +1,7 @@
 ﻿
 @{
     @model MLDShopping_Admin.Models.AccountVM;
-var isNew = Model == null || Model.AccountId == 0; 
+    var isNew = Model == null || Model.AccountId == 0;
     var title = isNew ? "New Account" : "Edit Account";
     var message = ViewData["message"];
 
@@ -25,7 +25,7 @@ var isNew = Model == null || Model.AccountId == 0;
                             <div class="form-group">
                                 <label>Account Id</label>
                                 <span class="form-control" id="AccountId" placeholder="Enter email">@Model.AccountId</span>
-                                @Html.HiddenFor(x=>x.AccountId)
+                                @Html.HiddenFor(x => x.AccountId)
                             </div>
                             <div class="form-group">
                                 <label asp-for="Email">Email address</label>
@@ -39,10 +39,17 @@ var isNew = Model == null || Model.AccountId == 0;
                                 <label asp-for="LastName">Last Name</label>
                                 <input asp-for="LastName" type="text" class="form-control" id="lastname" placeholder="Enter Last Name" required>
                             </div>
+
                             <div class="form-group">
                                 <label asp-for="Password">Password</label>
-                                <input asp-for="Password" type="password" class="form-control" id="Password" placeholder="Password">
+                                <div class="input-group">
+                                    <input asp-for="Password" type="password" class="form-control" id="Password" placeholder="Password">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-secondary" type="button" id="btnGeneratePassword">Generate</button>
+                                    </div>
+                                </div>
                             </div>
+
                             <div class="form-group">
                                 <label for="userImage">User Image</label>
                                 <div class="input-group">
@@ -64,14 +71,14 @@ var isNew = Model == null || Model.AccountId == 0;
 
 
                                 @*<label asp-for="Permissions">
-                Select Permissions
-                <select asp-for="Permissions" class="js-example-basic-multiple js-states form-control" multiple="multiple">
-                    @foreach (var p in Model.SelectList)
-                    {
-                        <option value="@p.Value">@p.Text</option>
-                    }
-                </select>
-            </label>*@
+                                        Select Permissions
+                                        <select asp-for="Permissions" class="js-example-basic-multiple js-states form-control" multiple="multiple">
+                                            @foreach (var p in Model.SelectList)
+                                            {
+                                                <option value="@p.Value">@p.Text</option>
+                                            }
+                                        </select>
+                                    </label>*@
                             </div>
                             <div><p>@message</p></div>
                         </div>
@@ -94,6 +101,32 @@ var isNew = Model == null || Model.AccountId == 0;
         $(document).ready(function () {
             $('#PermissionIds').select2();
 
+            $('#btnGeneratePassword').click(function (e) {
+
+                let password = GeneratePassword(12, true);
+                $('#Password').val(password);
+
+            });
+            function GeneratePassword(length, special) {
+                var iteration = 0;
+                var password = "";
+                var randomNumber;
+                if (special == undefined) {
+                    var special = false;
+                }
+                while (iteration < length) {
+                    randomNumber = (Math.floor((Math.random() * 100)) % 94) + 33;
+                    if (!special) {
+                        if ((randomNumber >= 33) && (randomNumber <= 47)) { continue; }
+                        if ((randomNumber >= 58) && (randomNumber <= 64)) { continue; }
+                        if ((randomNumber >= 91) && (randomNumber <= 96)) { continue; }
+                        if ((randomNumber >= 123) && (randomNumber <= 126)) { continue; }
+                    }
+                    iteration++;
+                    password += String.fromCharCode(randomNumber);
+                }
+                return password;
+            }
         })
     </script>
 

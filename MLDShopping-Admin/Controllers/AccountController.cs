@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MLDShopping_Admin.Entities;
 using MLDShopping_Admin.Models;
+using MLDShopping_Admin.Services;
 using Newtonsoft.Json;
 
 namespace MLDShopping_Admin.Controllers
@@ -16,10 +19,12 @@ namespace MLDShopping_Admin.Controllers
     {
         private readonly CMSShoppingContext _db;
         private readonly IMapper _mapper;
-        public AccountController(CMSShoppingContext db, IMapper mapper)
+        private readonly IPasswordHasher _passwordHasher;
+        public AccountController(CMSShoppingContext db, IMapper mapper, IPasswordHasher passwordHasher)
         {
             _db = db;
             _mapper = mapper;
+            _passwordHasher = passwordHasher;
         }
         public IActionResult Index()
         {
@@ -59,7 +64,7 @@ namespace MLDShopping_Admin.Controllers
         public IActionResult Edit(int id, string message = "")
         {
             var model = new AccountVM();
-            var entityInDb = _db.Accounts.Include(acc => acc.AccountPermissions).Where(acc => acc.AccountId == id).FirstOrDefault();
+            var entityInDb = _db.Accounts.Find(id);
             if (entityInDb != null)
             {
                 model = _mapper.Map<AccountVM>(entityInDb);
@@ -91,10 +96,16 @@ namespace MLDShopping_Admin.Controllers
             }
             else
             {
-                var entity = _db.Accounts.Include(a=> a.AccountPermissions).FirstOrDefault(a=> a.AccountId == account.AccountId);
+                var x = _db.Accounts.Include(a => a.AccountPermissions).FirstOrDefault(a => a.AccountId == account.AccountId);
+                var entity = _db.Accounts.Find(account.AccountId);
                 if (entity == null)
                 {
                     entity = _mapper.Map<Account>(account);
+                    if (!string.IsNullOrEmpty(account.Password))
+                    {
+                        var hashedPassword = _passwordHasher.HashPassword(account.Password);
+                        entity.Password = hashedPassword;
+                    }
                     entity.CreatedAt = DateTime.Now;
                     _db.Add(entity);
                     _db.SaveChanges();
@@ -112,9 +123,19 @@ namespace MLDShopping_Admin.Controllers
                 }
                 else
                 {
-                    entity = _mapper.Map<Account>(account);
-                    var accountPermissionsToRemove = _db.AccountPermissions.Where(ap => ap.AccountId == account.AccountId).ToList();
-                    _db.AccountPermissions.RemoveRange(accountPermissionsToRemove);
+                    _db.AccountPermissions.RemoveRange(entity.AccountPermissions);
+                    entity.FirstName = account.FirstName;
+                    entity.LastName = account.LastName;
+                    entity.Email = account.Email;
+                    //entity = _mapper.Map<Account>(account);
+
+                    if (!string.IsNullOrEmpty(account.Password))
+                    {
+                        var hashedPassword = _passwordHasher.HashPassword(account.Password);
+                        entity.Password = hashedPassword;
+                        var verifyPassword = _passwordHasher.VerifyHashedPassword(hashedPassword, account.Password);
+                    }
+
                     account.PermissionIds.ForEach(p =>
                     {
                         var permissionId = int.Parse(p);
@@ -125,19 +146,21 @@ namespace MLDShopping_Admin.Controllers
                         _db.SaveChanges();
 
                     });
+                    _db.Update(entity);
+                    _db.SaveChanges();
                     message = "Account has been updated.";
 
                 }
 
+                _db.SaveChanges();
             }
-            _db.SaveChanges();
             account.SelectList = GenerateSelectLists();
             ViewData["Message"] = message;
-            return View(account);
+            return RedirectToAction("Edit", new { id=account.AccountId,  message = message });
         }
         public IActionResult Delete(int id)
         {
-            var accountToDelete = _db.Accounts.Include(a => a.AccountPermissions).FirstOrDefault(a=> a.AccountId == id);
+            var accountToDelete = _db.Accounts.Include(a => a.AccountPermissions).FirstOrDefault(a => a.AccountId == id);
 
             var message = "";
             try
@@ -151,9 +174,9 @@ namespace MLDShopping_Admin.Controllers
             catch (Exception e)
             {
                 message = "An error has occurred.";
-                
+
             }
-            return RedirectToAction("Edit", new { message = message});
+            return RedirectToAction("Edit", new { message = message });
         }
         public List<SelectListItem> GenerateSelectLists()
         {
