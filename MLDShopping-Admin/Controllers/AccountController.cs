@@ -74,8 +74,8 @@ namespace MLDShopping_Admin.Controllers
                 {
                     model.PermissionIds = accountPermissions.Select(ap => ap.PermissionId.ToString()).ToList();
                 }
-                ViewData["Message"] = message;
             }
+            ViewData["Message"] = message;
             model.SelectList = this.GenerateSelectLists();
             return View(model);
         }
@@ -91,7 +91,7 @@ namespace MLDShopping_Admin.Controllers
             }
             else
             {
-                var entity = _db.Accounts.Find(account.AccountId);
+                var entity = _db.Accounts.Include(a=> a.AccountPermissions).FirstOrDefault(a=> a.AccountId == account.AccountId);
                 if (entity == null)
                 {
                     entity = _mapper.Map<Account>(account);
@@ -135,10 +135,25 @@ namespace MLDShopping_Admin.Controllers
             ViewData["Message"] = message;
             return View(account);
         }
-        public IActionResult Delete(AccountVM account)
+        public IActionResult Delete(int id)
         {
-            var xx = account;
-            return View();
+            var accountToDelete = _db.Accounts.Include(a => a.AccountPermissions).FirstOrDefault(a=> a.AccountId == id);
+
+            var message = "";
+            try
+            {
+                _db.AccountPermissions.RemoveRange(accountToDelete.AccountPermissions);
+                _db.Accounts.Remove(accountToDelete);
+                _db.SaveChanges();
+                message = "Account has been deleted";
+
+            }
+            catch (Exception e)
+            {
+                message = "An error has occurred.";
+                
+            }
+            return RedirectToAction("Edit", new { message = message});
         }
         public List<SelectListItem> GenerateSelectLists()
         {

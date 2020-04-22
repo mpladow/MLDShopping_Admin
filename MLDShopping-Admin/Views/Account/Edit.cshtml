@@ -1,7 +1,8 @@
 ﻿
 @{
     @model MLDShopping_Admin.Models.AccountVM;
-    var title = Model == null || Model.AccountId == 0 ? "New Account" : "Edit Account";
+var isNew = Model == null || Model.AccountId == 0; 
+    var title = isNew ? "New Account" : "Edit Account";
     var message = ViewData["message"];
 
 }
@@ -77,8 +78,8 @@
                         <!-- /.card-body -->
 
                         <div class="card-footer">
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                            <button type="submit" class="btn btn-danger" formaction="delete/@Model.AccountId">Delete</button>
+                            <button type="submit" class="btn btn-primary">@(isNew? "Submit" : "Save")</button>
+                            <button type="submit" class="btn btn-danger" formaction="/account/delete/@Model.AccountId">Delete</button>
                         </div>
                     </form>
                 </div>
