@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MLDShopping_Admin.Migrations
 {
     [DbContext(typeof(CMSShoppingContext))]
-    [Migration("20200416124444_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20200420111253_updatePrimaryKey")]
+    partial class updatePrimaryKey
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -31,36 +31,44 @@ namespace MLDShopping_Admin.Migrations
 
                     b.Property<DateTime?>("DeletedAt");
 
-                    b.Property<string>("Email");
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(255);
 
-                    b.Property<string>("FirstName");
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasMaxLength(255);
 
-                    b.Property<string>("LastName");
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasMaxLength(255);
+
+                    b.Property<string>("Password");
+
+                    b.Property<string>("ResetToken");
 
                     b.HasKey("AccountId");
 
-                    b.ToTable("Account");
+                    b.ToTable("Accounts");
                 });
 
             modelBuilder.Entity("MLDShopping_Admin.Entities.AccountPermission", b =>
                 {
+                    b.Property<int>("AccountId");
+
+                    b.Property<int>("PermissionId");
+
                     b.Property<int>("AccountPermissionId")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("AccountId");
+                    b.HasKey("AccountId", "PermissionId");
 
-                    b.Property<string>("PermissionId");
+                    b.HasAlternateKey("AccountPermissionId");
 
-                    b.Property<int?>("PermissionId1");
+                    b.HasIndex("PermissionId");
 
-                    b.HasKey("AccountPermissionId");
-
-                    b.HasIndex("AccountId");
-
-                    b.HasIndex("PermissionId1");
-
-                    b.ToTable("AccountPermission");
+                    b.ToTable("AccountPermissions");
                 });
 
             modelBuilder.Entity("MLDShopping_Admin.Entities.Permission", b =>
@@ -69,36 +77,27 @@ namespace MLDShopping_Admin.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("AccountId");
-
                     b.Property<string>("Description");
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .IsRequired();
 
                     b.HasKey("PermissionId");
 
-                    b.HasIndex("AccountId");
-
-                    b.ToTable("Permission");
+                    b.ToTable("Permissions");
                 });
 
             modelBuilder.Entity("MLDShopping_Admin.Entities.AccountPermission", b =>
                 {
                     b.HasOne("MLDShopping_Admin.Entities.Account", "Account")
-                        .WithMany()
+                        .WithMany("AccountPermissions")
                         .HasForeignKey("AccountId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("MLDShopping_Admin.Entities.Permission", "Permission")
-                        .WithMany()
-                        .HasForeignKey("PermissionId1");
-                });
-
-            modelBuilder.Entity("MLDShopping_Admin.Entities.Permission", b =>
-                {
-                    b.HasOne("MLDShopping_Admin.Entities.Account")
-                        .WithMany("Permissions")
-                        .HasForeignKey("AccountId");
+                        .WithMany("AccountPermissions")
+                        .HasForeignKey("PermissionId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

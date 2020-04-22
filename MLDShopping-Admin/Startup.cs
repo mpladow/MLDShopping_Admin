@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using MLDShopping_Admin.Entities;
 using MLDShopping_Admin.Models;
 
@@ -35,7 +36,7 @@ namespace MLDShopping_Admin
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
             services.AddDbContext<CMSShoppingContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("CMSShoppingContext")));
+            options.UseSqlServer(Configuration.GetConnectionString("CMSShoppingContext")).UseLazyLoadingProxies());
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddAutoMapper(typeof(Startup));
@@ -48,7 +49,7 @@ namespace MLDShopping_Admin
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -65,12 +66,18 @@ namespace MLDShopping_Admin
             app.UseStaticFiles();
             app.UseCookiePolicy();
 
-            app.UseMvc(routes =>
+            app.UseRouting();
+
+            app.UseEndpoints(endpoints =>
             {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
             });
+            //app.UseMvc(routes =>
+            //{
+            //    routes.MapRoute(
+            //        name: "default",
+            //        template: "{controller=Home}/{action=Index}/{id?}");
+            //});
         }
     }
 }

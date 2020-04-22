@@ -27,7 +27,7 @@
                             </div>
                         </div>
                         <div class="row mt-3">
-                            <button class="btn btn-primary btn-sm">Add New Account</button>
+                            <button class="btn btn-primary btn-sm" onclick="window.location.href = '@Url.Action("Edit", "Account")';">Add New Account</button>
                         </div>
                         <div class="row mt-3">
                             <table class="table table-light table-bordered table-hover table-sm" id="tblAccounts">
@@ -73,7 +73,7 @@
     <script language="javascript">
         $(document).ready(function () {
             var table = $("#tblAccounts").DataTable({
-                serverSide: true,
+                serverSide: false,
                 ajax: {
                     url: '/account/read/',
                     dataSrc: ""
@@ -85,7 +85,7 @@
                     { data: "AccountId" },
                     { data: "FirstName" },
                     { data: "LastName" },
-                    { data: "Permissions" },
+                    { data: "PermissionsString" },
                     { data: "CreatedAt" },
                     { data: "Deleted" },
                     {
