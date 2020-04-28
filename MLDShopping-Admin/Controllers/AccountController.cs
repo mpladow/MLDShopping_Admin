@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -15,16 +17,15 @@ using Newtonsoft.Json;
 
 namespace MLDShopping_Admin.Controllers
 {
+    [Authorize(Roles="Admin")]
     public class AccountController : Controller
     {
         private readonly CMSShoppingContext _db;
         private readonly IMapper _mapper;
-        private readonly IPasswordHasher _passwordHasher;
-        public AccountController(CMSShoppingContext db, IMapper mapper, IPasswordHasher passwordHasher)
+        public AccountController(CMSShoppingContext db, IMapper mapper)
         {
             _db = db;
             _mapper = mapper;
-            _passwordHasher = passwordHasher;
         }
         public IActionResult Index()
         {
@@ -98,12 +99,13 @@ namespace MLDShopping_Admin.Controllers
             {
                 var x = _db.Accounts.Include(a => a.AccountPermissions).FirstOrDefault(a => a.AccountId == account.AccountId);
                 var entity = _db.Accounts.Find(account.AccountId);
+                var hasher = new PasswordHasher();
                 if (entity == null)
                 {
                     entity = _mapper.Map<Account>(account);
                     if (!string.IsNullOrEmpty(account.Password))
                     {
-                        var hashedPassword = _passwordHasher.HashPassword(account.Password);
+                        var hashedPassword = hasher.HashPassword(account.Password);
                         entity.Password = hashedPassword;
                     }
                     entity.CreatedAt = DateTime.Now;
@@ -131,9 +133,9 @@ namespace MLDShopping_Admin.Controllers
 
                     if (!string.IsNullOrEmpty(account.Password))
                     {
-                        var hashedPassword = _passwordHasher.HashPassword(account.Password);
+                        var hashedPassword = hasher.HashPassword(account.Password);
                         entity.Password = hashedPassword;
-                        var verifyPassword = _passwordHasher.VerifyHashedPassword(hashedPassword, account.Password);
+                        var verifyPassword = hasher.VerifyHashedPassword(hashedPassword, account.Password);
                     }
 
                     account.PermissionIds.ForEach(p =>
@@ -156,7 +158,7 @@ namespace MLDShopping_Admin.Controllers
             }
             account.SelectList = GenerateSelectLists();
             ViewData["Message"] = message;
-            return RedirectToAction("Edit", new { id=account.AccountId,  message = message });
+            return RedirectToAction("Edit", new { id = account.AccountId, message = message });
         }
         public IActionResult Delete(int id)
         {

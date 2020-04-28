@@ -85,7 +85,7 @@
             },
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
-              "version": "[2.2.4, )"
+              "version": "[3.1.1, )"
             },
             "automapper": {
               "target": "Package",
