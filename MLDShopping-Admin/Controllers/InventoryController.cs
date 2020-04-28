@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MLDShopping_Admin.Entities;
 using MLDShopping_Admin.Models;
@@ -10,6 +11,8 @@ using Newtonsoft.Json;
 
 namespace MLDShopping_Admin.Controllers
 {
+    [Authorize]
+
     public class InventoryController : Controller
     {
         private readonly CMSShoppingContext _db;

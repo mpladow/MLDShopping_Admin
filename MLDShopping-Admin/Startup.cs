@@ -3,17 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MLDShopping_Admin.Entities;
+using MLDShopping_Admin.Interfaces;
 using MLDShopping_Admin.Models;
+using MLDShopping_Admin.Services;
 
 namespace MLDShopping_Admin
 {
@@ -36,7 +40,7 @@ namespace MLDShopping_Admin
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
             services.AddDbContext<CMSShoppingContext>(options =>
-            options.UseSqlServer(Configuration.GetConnectionString("CMSShoppingContext")).UseLazyLoadingProxies());
+            options.UseSqlServer(Configuration.GetConnectionString("CMSShoppingContext")).UseLazyLoadingProxies().EnableSensitiveDataLogging());
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddAutoMapper(typeof(Startup));
@@ -44,8 +48,16 @@ namespace MLDShopping_Admin
             {
                 mc.AddProfile(new MappingProfile());
             });
+            services.AddAuthentication("CookieAuth")
+                .AddCookie("CookieAuth", config =>
+            {
+                config.Cookie.Name = "Grandmas.Cookie";
+                config.LoginPath = "/Login";
+                config.AccessDeniedPath = "/identity/accessdenied";
+            });
             IMapper mapper = mappingConfig.CreateMapper();
             services.AddSingleton(mapper);
+            services.AddScoped<IAuthentication, Authentication>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -65,9 +77,11 @@ namespace MLDShopping_Admin
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
-
             app.UseRouting();
-
+            // who are you?
+            app.UseAuthentication();
+            //are we allowed?
+            app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
