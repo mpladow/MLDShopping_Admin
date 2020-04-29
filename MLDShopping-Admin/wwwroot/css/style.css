@@ -12,6 +12,13 @@ body {
 .main-header .sidebar-toggle {
   padding: 12.5px 12.5px; }
 
+.user-panel {
+  border-bottom: 1px solid #4f5962; }
+
+.brand-link {
+  border-bottom: 1px solid #4b545c;
+  color: rgba(255, 255, 255, 0.8); }
+
 .card {
   border-radius: 0; }
   .card .card-header {

@@ -19,6 +19,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <_ContentIncludedByDefault Remove="wwwroot\dist\scss\AdminLTE.min.css" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="wwwroot\bower_components\bootstrap-colorpicker\.bower.json" />
     <Content Include="wwwroot\bower_components\bootstrap-colorpicker\bower.json" />
     <Content Include="wwwroot\bower_components\bootstrap-colorpicker\dist\css\bootstrap-colorpicker.css" />
@@ -6626,11 +6630,85 @@
     <None Include="wwwroot\bower_components\select2\vendor\jquery-2.1.0.js" />
     <None Include="wwwroot\dist\css\adminlte.css.map" />
     <None Include="wwwroot\dist\css\adminlte.min.css.map" />
-    <None Include="wwwroot\dist\js\adminlte.js" />
-    <None Include="wwwroot\dist\js\adminlte.min.js" />
     <None Include="wwwroot\dist\js\demo.js" />
     <None Include="wwwroot\dist\js\pages\dashboard.js" />
     <None Include="wwwroot\dist\js\pages\dashboard2.js" />
+    <None Include="wwwroot\dist\scss\.csslintrc" />
+    <None Include="wwwroot\dist\scss\AdminLTE-components.scss" />
+    <None Include="wwwroot\dist\scss\AdminLTE-core.scss" />
+    <None Include="wwwroot\dist\scss\AdminLTE-extra-components.scss" />
+    <None Include="wwwroot\dist\scss\AdminLTE-pages.scss" />
+    <None Include="wwwroot\dist\scss\AdminLTE-plugins.scss" />
+    <None Include="wwwroot\dist\scss\AdminLTE-raw.scss" />
+    <None Include="wwwroot\dist\scss\AdminLTE.scss" />
+    <None Include="wwwroot\dist\scss\mixins\_accent.scss" />
+    <None Include="wwwroot\dist\scss\mixins\_backgrounds.scss" />
+    <None Include="wwwroot\dist\scss\mixins\_cards.scss" />
+    <None Include="wwwroot\dist\scss\mixins\_custom-forms.scss" />
+    <None Include="wwwroot\dist\scss\mixins\_direct-chat.scss" />
+    <None Include="wwwroot\dist\scss\mixins\_miscellaneous.scss" />
+    <None Include="wwwroot\dist\scss\mixins\_navbar.scss" />
+    <None Include="wwwroot\dist\scss\mixins\_sidebar.scss" />
+    <None Include="wwwroot\dist\scss\mixins\_toasts.scss" />
+    <None Include="wwwroot\dist\scss\pages\_404_500_errors.scss" />
+    <None Include="wwwroot\dist\scss\pages\_e-commerce.scss" />
+    <None Include="wwwroot\dist\scss\pages\_invoice.scss" />
+    <None Include="wwwroot\dist\scss\pages\_lockscreen.scss" />
+    <None Include="wwwroot\dist\scss\pages\_login_and_register.scss" />
+    <None Include="wwwroot\dist\scss\pages\_mailbox.scss" />
+    <None Include="wwwroot\dist\scss\pages\_profile.scss" />
+    <None Include="wwwroot\dist\scss\pages\_projects.scss" />
+    <None Include="wwwroot\dist\scss\parts\_components.scss" />
+    <None Include="wwwroot\dist\scss\parts\_core.scss" />
+    <None Include="wwwroot\dist\scss\parts\_extra-components.scss" />
+    <None Include="wwwroot\dist\scss\parts\_miscellaneous.scss" />
+    <None Include="wwwroot\dist\scss\parts\_pages.scss" />
+    <None Include="wwwroot\dist\scss\parts\_plugins.scss" />
+    <None Include="wwwroot\dist\scss\plugins\_bootstrap-slider.scss" />
+    <None Include="wwwroot\dist\scss\plugins\_bootstrap-switch.scss" />
+    <None Include="wwwroot\dist\scss\plugins\_fullcalendar.scss" />
+    <None Include="wwwroot\dist\scss\plugins\_icheck-bootstrap.scss" />
+    <None Include="wwwroot\dist\scss\plugins\_jqvmap.scss" />
+    <None Include="wwwroot\dist\scss\plugins\_mapael.scss" />
+    <None Include="wwwroot\dist\scss\plugins\_miscellaneous.scss" />
+    <None Include="wwwroot\dist\scss\plugins\_mixins.scss" />
+    <None Include="wwwroot\dist\scss\plugins\_pace.scss" />
+    <None Include="wwwroot\dist\scss\plugins\_select2.scss" />
+    <None Include="wwwroot\dist\scss\plugins\_sweetalert2.scss" />
+    <None Include="wwwroot\dist\scss\plugins\_toastr.scss" />
+    <None Include="wwwroot\dist\scss\_alerts.scss" />
+    <None Include="wwwroot\dist\scss\_bootstrap-variables.scss" />
+    <None Include="wwwroot\dist\scss\_brand.scss" />
+    <None Include="wwwroot\dist\scss\_buttons.scss" />
+    <None Include="wwwroot\dist\scss\_callout.scss" />
+    <None Include="wwwroot\dist\scss\_cards.scss" />
+    <None Include="wwwroot\dist\scss\_carousel.scss" />
+    <None Include="wwwroot\dist\scss\_colors.scss" />
+    <None Include="wwwroot\dist\scss\_control-sidebar.scss" />
+    <None Include="wwwroot\dist\scss\_direct-chat.scss" />
+    <None Include="wwwroot\dist\scss\_dropdown.scss" />
+    <None Include="wwwroot\dist\scss\_elevation.scss" />
+    <None Include="wwwroot\dist\scss\_forms.scss" />
+    <None Include="wwwroot\dist\scss\_info-box.scss" />
+    <None Include="wwwroot\dist\scss\_layout.scss" />
+    <None Include="wwwroot\dist\scss\_main-header.scss" />
+    <None Include="wwwroot\dist\scss\_main-sidebar.scss" />
+    <None Include="wwwroot\dist\scss\_miscellaneous.scss" />
+    <None Include="wwwroot\dist\scss\_mixins.scss" />
+    <None Include="wwwroot\dist\scss\_modals.scss" />
+    <None Include="wwwroot\dist\scss\_navs.scss" />
+    <None Include="wwwroot\dist\scss\_print.scss" />
+    <None Include="wwwroot\dist\scss\_products.scss" />
+    <None Include="wwwroot\dist\scss\_progress-bars.scss" />
+    <None Include="wwwroot\dist\scss\_sidebar-mini.scss" />
+    <None Include="wwwroot\dist\scss\_small-box.scss" />
+    <None Include="wwwroot\dist\scss\_social-widgets.scss" />
+    <None Include="wwwroot\dist\scss\_table.scss" />
+    <None Include="wwwroot\dist\scss\_text.scss" />
+    <None Include="wwwroot\dist\scss\_timeline.scss" />
+    <None Include="wwwroot\dist\scss\_toasts.scss" />
+    <None Include="wwwroot\dist\scss\_users-list.scss" />
+    <None Include="wwwroot\dist\scss\_variables.scss" />
     <None Include="wwwroot\lib\fontawesome5\webfonts\fa-brands-400.svg" />
     <None Include="wwwroot\lib\fontawesome5\webfonts\fa-brands-400.woff2" />
     <None Include="wwwroot\lib\fontawesome5\webfonts\fa-regular-400.svg" />
@@ -6645,6 +6723,7 @@
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
     <PackageReference Include="EntityFramework" Version="6.4.0" />
     <PackageReference Include="Microsoft.AspNet.Identity.Core" Version="2.2.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.1.3" />
     <!--<PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />-->
     <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" Version="3.1.3" />
