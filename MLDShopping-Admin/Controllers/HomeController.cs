@@ -17,6 +17,8 @@ namespace MLDShopping_Admin.Controllers
         {
             var myView = View();
             ViewBag.Title = "Dashboard";
+            ViewBag.PageHeader = "Home";
+            ViewBag.Description = "Do nothing here";
             return View();
         }
 

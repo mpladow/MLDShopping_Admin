@@ -36,6 +36,8 @@ namespace MLDShopping_Admin.Controllers
             //    model.Add(ITEMTEST);
 
             //}
+            ViewBag.PageHeader = "Account";
+            ViewBag.Description = "Do account stuff here";
             return View();
         }
         public string Read()
