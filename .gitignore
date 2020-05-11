@@ -1,2 +1,11 @@
 .vs/
 .vs/MLDShopping-Admin/v16/Server/sqlite3/db.lock
+MLDShopping-Admin/obj/Debug/netcoreapp2.2/MLDShopping-Admin.AssemblyInfoInputs.cache
+MLDShopping-Admin/obj/Debug/netcoreapp2.2/MLDShopping-Admin.assets.cache
+MLDShopping-Admin/obj/Debug/netcoreapp2.2/MLDShopping-Admin.csproj.CoreCompileInputs.cache
+MLDShopping-Admin/obj/Debug/netcoreapp2.2/MLDShopping-Admin.csprojAssemblyReference.cache
+MLDShopping-Admin/obj/Debug/netcoreapp2.2/MLDShopping-Admin.RazorAssemblyInfo.cache
+MLDShopping-Admin/obj/MLDShopping-Admin.csproj.nuget.cache
+MLDShopping-Admin/obj/MLDShopping-Admin.csproj.nuget.dgspec.json
+MLDShopping-Admin/obj/MLDShopping-Admin.csproj.nuget.g.props
+MLDShopping-Admin/obj/project.assets.json
