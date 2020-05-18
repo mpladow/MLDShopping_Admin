@@ -13,14 +13,6 @@
             <div class="row">
                 <div class="card w-100">
                     <div class="card-body p-4">
-                        <div class="row">
-                            <div class="input-group mb-3">
-                                <input type="text" class="form-control form-control-sm" placeholder="Type to search..." aria-label="Type to search..." aria-describedby="Type to search...">
-                                <div class="input-group-append">
-                                    <a class="btn btn-sm btn-outline-secondary" href="/account/edit">Button</a>
-                                </div>
-                            </div>
-                        </div>
                         <div class="row mt-3">
                             <button class="btn btn-primary btn-sm" onclick="window.location.href = '@Url.Action("Edit", "Account")';">Add New Account</button>
                         </div>
@@ -65,6 +57,7 @@
 @section scripts {
     <!-- DataTables -->
     <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.5/js/jquery.dataTables.js"></script>
+
     <script language="javascript">
         $(document).ready(function () {
             var table = $("#tblAccounts").DataTable({

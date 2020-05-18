@@ -96,6 +96,10 @@
                         <div class="card-footer">
                             <button type="submit" class="btn btn-primary">@(isNew? "Submit" : "Save")</button>
                             <button type="submit" class="btn btn-danger" formaction="/account/delete/@Model.AccountId">Delete</button>
+                            @if (Model.AccountId > 0)
+                            {
+                                <button type="button" class="btn btn-default" onclick="window.location.href = '@Url.Action("Edit", "Account", new { id= 0})';">New</button>
+                            }
                         </div>
                     </form>
                 </div>
