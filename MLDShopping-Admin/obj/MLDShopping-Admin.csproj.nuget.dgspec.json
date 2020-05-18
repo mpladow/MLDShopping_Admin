@@ -49,10 +49,6 @@
               "target": "Package",
               "version": "[6.4.0, )"
             },
-            "LinqKit.Microsoft.EntityFrameworkCore": {
-              "target": "Package",
-              "version": "[3.0.0, )"
-            },
             "Microsoft.AspNet.Identity.Core": {
               "target": "Package",
               "version": "[2.2.3, )"
