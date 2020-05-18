@@ -15,6 +15,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MLDShopping_Admin.Entities;
+using MLDShopping_Admin.Hubs;
 using MLDShopping_Admin.Interfaces;
 using MLDShopping_Admin.Models;
 using MLDShopping_Admin.Services;
@@ -58,6 +59,7 @@ namespace MLDShopping_Admin
             IMapper mapper = mappingConfig.CreateMapper();
             services.AddSingleton(mapper);
             services.AddScoped<IAuthentication, Authentication>();
+            services.AddSignalR();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -85,6 +87,7 @@ namespace MLDShopping_Admin
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapHub<ChatHub>("/hubs/chatHub");
             });
             //app.UseMvc(routes =>
             //{
