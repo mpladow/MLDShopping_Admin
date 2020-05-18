@@ -164,3 +164,4 @@ C:\Users\mplad\source\repos\MLDShopping-Admin\MLDShopping-Admin\bin\Debug\netcor
 C:\Users\mplad\source\repos\MLDShopping-Admin\MLDShopping-Admin\bin\Debug\netcoreapp3.1\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
 C:\Users\mplad\source\repos\MLDShopping-Admin\MLDShopping-Admin\obj\Debug\netcoreapp3.1\Razor\Views\Identity\AccessDenied.cshtml.g.cs
 C:\Users\mplad\source\repos\MLDShopping-Admin\MLDShopping-Admin\obj\Debug\netcoreapp3.1\Razor\Views\Identity\Index.cshtml.g.cs
+C:\Users\mplad\source\repos\MLDShopping-Admin\MLDShopping-Admin\obj\Debug\netcoreapp3.1\Razor\Views\Chat\Index.cshtml.g.cs

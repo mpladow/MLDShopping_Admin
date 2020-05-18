@@ -1,0 +1,80 @@
+﻿@model ChatVM
+<section class="content-header">
+    <h1>
+        Home
+        <small>Optional description</small>
+    </h1>
+</section>
+<!-- Main content -->
+<section class="content container-fluid">
+    <div class="container">
+        <div class="row">&nbsp;</div>
+        <div class="row">
+            <div class="col-2">User</div>
+            <div class="col-12"><p>@Model.Name</p></div>
+            <div class="col-12"><p>@Model.Email</p></div>
+
+        </div>
+        <div class="row">
+            <div class="col-2">Message</div>
+            <div class="col-4"><input type="text" id="messageInput" /></div>
+        </div>
+        <div class="row">&nbsp;</div>
+        <div class="row">
+            <div class="col-6">
+                <input type="button" id="sendButton" value="Send Message" />
+            </div>
+        </div>
+    </div>
+    <div>
+        <div class="row">
+            <div class="col-12">
+                <hr />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <ul id="messagesList"></ul>
+            </div>
+        </div>
+    </div>
+</section>
+@section scripts{
+    <script src="~/js/signalr/dist/browser/signalr.js"></script>
+    <script>
+        $(document).ready(function () {
+            var user = '@Model.Name';
+            let sendButton = document.querySelector("#sendButton");
+            let messageInput = document.querySelector("#messageInput");
+                // EVENT LISTENERS
+            sendButton.addEventListener("click", (event) => {
+                let message = messageInput.value;
+                sendMessage(user, message);
+                    event.preventDefault();
+                })
+            // FUNCTIONS
+            //Disable send button until connection is established
+            var connection = new signalR.HubConnectionBuilder().withUrl("/hubs/chatHub").build();
+            sendButton.disabled = true;
+
+            connection.on("ReceiveMessage", (user, message) => {
+                var msg = message.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+                var encodedMsg = user + " says " + msg;
+                var li = document.createElement("li");
+                li.textContent = encodedMsg;
+                document.getElementById("messagesList").appendChild(li);
+            });
+
+            connection.start().then(() => {
+                sendButton.disabled = false;
+            }).catch((error) => {
+                return console.error(error.toString());
+            })
+            function sendMessage(user, message) {
+                connection.invoke("SendMessage", user, message).catch((err) => {
+                    return console.error(err.toString());
+                })
+            }
+        })
+    </script>
+}
