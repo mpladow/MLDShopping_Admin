@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using MLDShopping_Admin.Components;
 using MLDShopping_Admin.Entities;
 using MLDShopping_Admin.Models;
 using Newtonsoft.Json;
@@ -12,7 +13,7 @@ using Newtonsoft.Json;
 namespace MLDShopping_Admin.Controllers
 {
     [Authorize]
-
+    [BreadcrumbActionFilter]
     public class InventoryController : Controller
     {
         private readonly CMSShoppingContext _db;
@@ -35,6 +36,8 @@ namespace MLDShopping_Admin.Controllers
             }
 
             ViewData["Title"] = "Inventory";
+            ViewData["PageHeader"] = "Inventory";
+            ViewData["Description"] = "View your stock levels, inventory items, etc.";
             return View(model);
         }
         public string Read()

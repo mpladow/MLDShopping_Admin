@@ -4,14 +4,15 @@
     var isNew = Model == null || Model.AccountId == 0;
     var title = isNew ? "New Account" : "Edit Account";
     var message = ViewData["message"];
+    var messageType = ViewData["MessageType"];
 
 }
 
-<section class="content-header">
+@*<section class="content-header">
     <h1>
         @title
     </h1>
-</section>
+</section>*@
 
 <section class="content container-fluid">
     <div class="row mt-3">
@@ -22,11 +23,20 @@
                     <!-- form start -->
                     <form role="form" method="post">
                         <div class="card-body">
-                            <div class="form-group">
-                                <label>Account Id</label>
-                                <span class="form-control" id="AccountId" placeholder="Enter email">@Model.AccountId</span>
-                                @Html.HiddenFor(x => x.AccountId)
-                            </div>
+                            @if (!string.IsNullOrEmpty(message as string))
+                            {
+                                <div class="callout callout-@messageType alert-dismissible">
+                                    <p>@message</p>
+                                </div>
+                            }
+                            @Html.HiddenFor(x => x.AccountId)
+                            @if (Model.AccountId != 0)
+                            {
+                                <div class="form-group">
+                                    <label>Account Id</label>
+                                    <span class="form-control" id="AccountId">@Model.AccountId</span>
+                                </div>
+                            }
                             <div class="form-group">
                                 <label asp-for="Email">Email address</label>
                                 <input asp-for="Email" class="form-control" id="Email" placeholder="Enter email" required>
@@ -80,7 +90,6 @@
                                         </select>
                                     </label>*@
                             </div>
-                            <div><p>@message</p></div>
                         </div>
                         <!-- /.card-body -->
 

@@ -18,6 +18,7 @@ using MLDShopping_Admin.Entities;
 using MLDShopping_Admin.Interfaces;
 using MLDShopping_Admin.Models;
 using MLDShopping_Admin.Services;
+using Newtonsoft.Json.Serialization;
 
 namespace MLDShopping_Admin
 {
@@ -58,6 +59,11 @@ namespace MLDShopping_Admin
             IMapper mapper = mappingConfig.CreateMapper();
             services.AddSingleton(mapper);
             services.AddScoped<IAuthentication, Authentication>();
+            services.AddControllers()
+                .AddNewtonsoftJson(options =>
+                {
+                    options.SerializerSettings.ContractResolver = new DefaultContractResolver();
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

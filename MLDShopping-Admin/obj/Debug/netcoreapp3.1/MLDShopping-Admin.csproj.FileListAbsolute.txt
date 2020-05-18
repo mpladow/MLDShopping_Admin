@@ -107,8 +107,6 @@ C:\Users\mplad\source\repos\MLDShopping-Admin\MLDShopping-Admin\bin\Debug\netcor
 C:\Users\mplad\source\repos\MLDShopping-Admin\MLDShopping-Admin\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
 C:\Users\mplad\source\repos\MLDShopping-Admin\MLDShopping-Admin\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Identity.Core.dll
 C:\Users\mplad\source\repos\MLDShopping-Admin\MLDShopping-Admin\bin\Debug\netcoreapp3.1\Microsoft.AspNet.Identity.Core.dll
-C:\Users\mplad\source\repos\MLDShopping-Admin\MLDShopping-Admin\obj\Debug\netcoreapp3.1\MLDShopping-Admin.csproj.CoreCompileInputs.cache
-C:\Users\mplad\source\repos\MLDShopping-Admin\MLDShopping-Admin\obj\Debug\netcoreapp3.1\MLDShopping-Admin.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\mplad\source\repos\MLDShopping-Admin\MLDShopping-Admin\bin\Debug\netcoreapp3.1\Microsoft.CodeAnalysis.Razor.dll
 C:\Users\mplad\source\repos\MLDShopping-Admin\MLDShopping-Admin\bin\Debug\netcoreapp3.1\cs\Microsoft.CodeAnalysis.resources.dll
 C:\Users\mplad\source\repos\MLDShopping-Admin\MLDShopping-Admin\bin\Debug\netcoreapp3.1\de\Microsoft.CodeAnalysis.resources.dll
@@ -164,3 +162,10 @@ C:\Users\mplad\source\repos\MLDShopping-Admin\MLDShopping-Admin\bin\Debug\netcor
 C:\Users\mplad\source\repos\MLDShopping-Admin\MLDShopping-Admin\bin\Debug\netcoreapp3.1\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
 C:\Users\mplad\source\repos\MLDShopping-Admin\MLDShopping-Admin\obj\Debug\netcoreapp3.1\Razor\Views\Identity\AccessDenied.cshtml.g.cs
 C:\Users\mplad\source\repos\MLDShopping-Admin\MLDShopping-Admin\obj\Debug\netcoreapp3.1\Razor\Views\Identity\Index.cshtml.g.cs
+C:\Users\mplad\source\repos\MLDShopping-Admin\MLDShopping-Admin\bin\Debug\netcoreapp3.1\LinqKit.Microsoft.EntityFrameworkCore.dll
+C:\Users\mplad\source\repos\MLDShopping-Admin\MLDShopping-Admin\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.JsonPatch.dll
+C:\Users\mplad\source\repos\MLDShopping-Admin\MLDShopping-Admin\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+C:\Users\mplad\source\repos\MLDShopping-Admin\MLDShopping-Admin\bin\Debug\netcoreapp3.1\Newtonsoft.Json.Bson.dll
+C:\Users\mplad\source\repos\MLDShopping-Admin\MLDShopping-Admin\bin\Debug\netcoreapp3.1\System.Linq.Dynamic.Core.dll
+C:\Users\mplad\source\repos\MLDShopping-Admin\MLDShopping-Admin\obj\Debug\netcoreapp3.1\MLDShopping-Admin.csproj.CoreCompileInputs.cache
+C:\Users\mplad\source\repos\MLDShopping-Admin\MLDShopping-Admin\obj\Debug\netcoreapp3.1\MLDShopping-Admin.MvcApplicationPartsAssemblyInfo.cache
