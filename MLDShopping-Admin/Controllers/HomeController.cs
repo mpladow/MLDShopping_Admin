@@ -6,17 +6,21 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using MLDShopping_Admin.Components;
 using MLDShopping_Admin.Models;
 
 namespace MLDShopping_Admin.Controllers
 {
     [Authorize]
+    [BreadcrumbActionFilter]
     public class HomeController : Controller
     {
         public IActionResult Index()
         {
             var myView = View();
             ViewBag.Title = "Dashboard";
+            ViewData["PageHeader"] = "Home";
+            ViewData["Description"] = "Do nothing here";
             return View();
         }
 

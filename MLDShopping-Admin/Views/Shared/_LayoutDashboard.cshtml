@@ -131,6 +131,24 @@
             <div class="col-1 col-md-2 pl-0 pr-0"></div>
             <main role="main" class="pb-1 pt-4 col-11 col-md-10">
                 <div class="container-fluid" id="renderBody">
+                    @if (ViewBag.Breadcrumbs != null)
+                    {
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb bg-white justify-content-center justify-content-md-start justify-content-lg-start justify-content-xl-start">
+                                @foreach (var breadcrumb in ViewBag.Breadcrumbs as List<MLDShopping_Admin.Models.Breadcrumb>)
+                                {
+                                    if (breadcrumb.Active)
+                                    {
+                                        <li class="breadcrumb-item active"><a asp-action="@breadcrumb.Action" asp-controller="@breadcrumb.Controller">@breadcrumb.Text</a></li>
+                                    }
+                                    else
+                                    {
+                                        <li class="breadcrumb-item" aria-current="page">@breadcrumb.Text</li>
+                                    }
+                                }
+                            </ol>
+                        </nav>
+                    }
                     @*<a href="#" data-target="#sidebar" data-toggle="collapse"><i class="fa fa-bars fa-lg py-2 p-1"></i></a>*@
 
                     @RenderBody()

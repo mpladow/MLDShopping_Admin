@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using System.Linq.Dynamic.Core;
 using AutoMapper;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNetCore.Authentication;
@@ -9,7 +9,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.EntityFrameworkCore;
+using MLDShopping_Admin.Components;
 using MLDShopping_Admin.Entities;
 using MLDShopping_Admin.Models;
 using MLDShopping_Admin.Services;
@@ -17,7 +19,8 @@ using Newtonsoft.Json;
 
 namespace MLDShopping_Admin.Controllers
 {
-    [Authorize(Roles="Admin")]
+    [Authorize(Roles = "Admin")]
+    [BreadcrumbActionFilter]
     public class AccountController : Controller
     {
         private readonly CMSShoppingContext _db;
@@ -29,19 +32,38 @@ namespace MLDShopping_Admin.Controllers
         }
         public IActionResult Index()
         {
-
-            //for (int i = 0; i < 15; i++)
-            //{
-            //    var ITEMTEST = new AccountVM() { AccountId = i, FirstName = "Bob" + i, LastName = "mcface" + i, Email = "dfsdf" + i + "@dfdf.com", CreatedAt = i + "d/fdf", Deleted = false, Permissions = "lots, of, permissions" };
-            //    model.Add(ITEMTEST);
-
-            //}
+            ViewBag.PageHeader = "Account";
+            //ViewBag.Description = "Do account stuff here";
             return View();
         }
-        public string Read()
+        public JsonResult Read([FromBody]DataTableAjaxPostModel model)
         {
-            var model = _db.Accounts
+            // action inside a standard controller
+            int totalResultsCount;
+            int filteredResultsCount;
+
+            //data from model
+            var searchBy = (model.search != null) ? model.search.value : null;
+            var take = model.length;
+            var skip = model.start;
+
+            string sortBy = "";
+            string sortDir = "";
+
+            if (model.order != null)
+            {
+                // in this example we just default sort on the 1st column
+                sortBy = model.columns[model.order[0].column].data;
+                sortDir = model.order[0].dir.ToLower();
+            }
+            //if (String.IsNullOrEmpty(searchBy))
+            //{
+            //    sortBy = "AccountId";
+            //    sortDir = true;
+            //}
+            var res = _db.Accounts
                   .Where(a => a.DeletedAt == null)
+                  .Where(w => w.Email.Contains(searchBy) || w.FirstName.Contains(searchBy) || w.LastName.Contains(searchBy) || w.AccountId.ToString().Contains(searchBy))
                   .Select(s => new AccountVM
                   {
                       AccountId = s.AccountId,
@@ -51,18 +73,28 @@ namespace MLDShopping_Admin.Controllers
                       Deleted = s.DeletedAt.HasValue,
                       PermissionsString = String.Join(",", s.AccountPermissions
                        .Select(p => p.Permission.Name).ToList())
-                  }).ToList();
+                  })
+                  .OrderBy(sortBy + " " + sortDir); // have to give a default order when skipping .. so use the PK
+            var result = res
+                .Skip(skip)
+                .Take(take)
+                .ToList();
+            //.ToList();
+            totalResultsCount = _db.Accounts.Count();
+            filteredResultsCount = res.Count();
 
-            //for (int i = 0; i < 15; i++)
-            //{
-            //    var ITEMTEST = new AccountVM() { AccountId = i, FirstName = "Bob" + i, LastName = "mcface" + i, Email = "dfsdf" + i + "@dfdf.com", CreatedAt = i + "d/fdf", Deleted = false, Permissions = "lots, of, permissions" };
-            //    model.Add(ITEMTEST);
-
-            //}
             var json = JsonConvert.SerializeObject(model);
-            return json;
+            return Json(new
+            {
+                // this is what datatables whats sent back
+                draw = model.draw,
+                recordsTotal = totalResultsCount,
+                recordsFiltered = filteredResultsCount,
+                data = result
+            });
         }
-        public IActionResult Edit(int id, string message = "")
+
+        public IActionResult Edit(int id, string message = "", string messageType = "")
         {
             var model = new AccountVM();
             var entityInDb = _db.Accounts.Find(id);
@@ -81,18 +113,32 @@ namespace MLDShopping_Admin.Controllers
                     model.PermissionIds = accountPermissions.Select(ap => ap.PermissionId.ToString()).ToList();
                 }
             }
-            ViewData["Message"] = message;
+            // set values to be put into the _Layout page
+            if (id == 0)
+            {
+                ViewData["PageHeader"] = "Account Create";
+            }
+            else
+            {
+                ViewData["PageHeader"] = "Account Edit";
+            }
+            // SET values for message
+            if (message != null)
+            {
+                ViewData["Message"] = message;
+                ViewData["MessageType"] = messageType.ToLower();
+            }
             model.SelectList = this.GenerateSelectLists();
             return View(model);
         }
         [HttpPost]
-
         public IActionResult Edit(AccountVM account)
         {
-            var message = "";
+            var message = new Message();
             if (!ModelState.IsValid)
             {
-                message = "Please check your form details";
+                message.Text = "Please check your form details";
+                message.MessageType = MessageType.Warning;
                 return BadRequest();
             }
             else
@@ -120,7 +166,8 @@ namespace MLDShopping_Admin.Controllers
                         accountPermissionEntity.AccountId = entity.AccountId;
                         _db.AccountPermissions.Add(accountPermissionEntity);
                     });
-                    message = "Account has been created.";
+                    message.Text = "Account has been created.";
+                    message.MessageType = MessageType.Success;
 
                 }
                 else
@@ -150,35 +197,36 @@ namespace MLDShopping_Admin.Controllers
                     });
                     _db.Update(entity);
                     _db.SaveChanges();
-                    message = "Account has been updated.";
-
+                    message.Text = "Account has been updated.";
+                    message.MessageType = MessageType.Success;
                 }
 
                 _db.SaveChanges();
             }
             account.SelectList = GenerateSelectLists();
-            ViewData["Message"] = message;
-            return RedirectToAction("Edit", new { id = account.AccountId, message = message });
+            return RedirectToAction("Edit", new { id = account.AccountId, message = message.Text, messageType = message.MessageType.ToString() });
         }
         public IActionResult Delete(int id)
         {
+            var message = new Message();
+
             var accountToDelete = _db.Accounts.Include(a => a.AccountPermissions).FirstOrDefault(a => a.AccountId == id);
 
-            var message = "";
             try
             {
                 _db.AccountPermissions.RemoveRange(accountToDelete.AccountPermissions);
                 _db.Accounts.Remove(accountToDelete);
                 _db.SaveChanges();
-                message = "Account has been deleted";
+                message.Text = "Account has been deleted";
+                message.MessageType = MessageType.Success;
 
             }
             catch (Exception e)
             {
-                message = "An error has occurred.";
-
+                message.Text = "An error has occurred.";
+                message.MessageType = MessageType.Danger;
             }
-            return RedirectToAction("Edit", new { message = message });
+            return RedirectToAction("Edit", new { id = 0, message = message.Text, messageType = message.MessageType });
         }
         public List<SelectListItem> GenerateSelectLists()
         {

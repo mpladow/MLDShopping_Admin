@@ -5,12 +5,7 @@
     //Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
 }
 
-    <section class="content-header">
-        <h1>
-            Accounts
-            <small>Manage admin accounts here</small>
-        </h1>
-    </section>
+
 
 <section class="content container-fluid">
     <div class="row mt-3">
@@ -18,14 +13,6 @@
             <div class="row">
                 <div class="card w-100">
                     <div class="card-body p-4">
-                        <div class="row">
-                            <div class="input-group mb-3">
-                                <input type="text" class="form-control form-control-sm" placeholder="Type to search..." aria-label="Type to search..." aria-describedby="Type to search...">
-                                <div class="input-group-append">
-                                    <a class="btn btn-sm btn-outline-secondary" href="/account/edit">Button</a>
-                                </div>
-                            </div>
-                        </div>
                         <div class="row mt-3">
                             <button class="btn btn-primary btn-sm" onclick="window.location.href = '@Url.Action("Edit", "Account")';">Add New Account</button>
                         </div>
@@ -70,43 +57,71 @@
 @section scripts {
     <!-- DataTables -->
     <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.5/js/jquery.dataTables.js"></script>
+
     <script language="javascript">
         $(document).ready(function () {
             var table = $("#tblAccounts").DataTable({
-                serverSide: false,
-                ajax: {
-                    url: '/account/read/',
-                    dataSrc: ""
-                },
                 paging: true,
-                dataSrc: "",
-                sAjaxDataProp: "",
+                responsive: true,
+                serverSide: true,
+                autoWidth: true,
+                ajax: {
+                    url: "/Account/Read",
+                    type: "POST",
+                    contentType: "application/json",
+                    data: function (d) {
+                        return JSON.stringify(d);
+                    },
+                    dataSrc: function (json) {
+                        console.log(json);
+                        if (json.data)
+                            return json.data;
+                        else
+                            return [];
+                    }
+                },
                 columns: [
-                    { data: "AccountId" },
-                    { data: "FirstName" },
-                    { data: "LastName" },
-                    { data: "PermissionsString" },
-                    { data: "CreatedAt" },
-                    { data: "Deleted" },
+                    { data: "AccountId", "autoWidth": true },
+                    { data: "FirstName", "autoWidth": true },
+                    { data: "LastName", "autoWidth": true },
+                    { data: "PermissionsString", "autoWidth": true },
+                    { data: "CreatedAt", "autoWidth": true },
+                    { data: "Deleted", "autoWidth": true },
                     {
                         data: "AccountId",
                         render: function (data, type, account) {
-                            return  '<a href="/account/edit/' + data + '">Edit</a>';
-                        }
+                            return '<a href="/account/edit/' + data + '">Edit</a>';
+                        },
+                        "autoWidth": true
                     }
 
-                ]
+                ],
+                "language": {
+                    "search": "",
+                    "searchPlaceholder": "Search..."
+                },
             });
-            $('#tblAccounts tfoot th').each(function (i) {
-                var title = $('#tblAccounts thead th').eq($(this).index()).text();
-                $(this).html('<input type="text" placeholder="Search ' + title + '" data-index="' + i + '" />');
-            });
-            $(table.table().container()).on('keyup', 'tfoot input', function () {
-                table
-                    .column($(this).data('index'))
-                    .search(this.value)
-                    .draw();
-            });
+            //$('#tblAccounts tfoot th').each(function (i) {
+            //    var title = $('#tblAccounts thead th').eq($(this).index()).text();
+            //    $(this).html('<input type="text" placeholder="Search ' + title + '" data-index="' + i + '" />');
+            //});
+
+            //$('#tblAccounts thead tr').clone(true).appendTo('#tblAccounts thead');
+
+            //$('#tblAccounts thead tr:eq(1) th').each(function (i) {
+            //    var title = $(this).text();
+            //    $(this).html('<input type="text" placeholder="Search ' + title + '" />');
+
+            //    $('input', this).on('keyup change', function () {
+            //        if (table.column(i).search() !== this.value) {
+            //            table
+            //                .column(i)
+            //                .search(this.value)
+            //                .draw();
+            //        }
+            //    });
+            //});
+
         })
     </script>
 

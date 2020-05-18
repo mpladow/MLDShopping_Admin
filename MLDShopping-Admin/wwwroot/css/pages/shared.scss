@@ -11,7 +11,7 @@ body {
     }
 
     .sidebar-toggle {
-        padding: 12.5px 12.5px;
+        padding: 12.5px 12.5px!important;
     }
 }
 
@@ -53,15 +53,6 @@ body {
 .dataTables_wrapper{
     width: 100%;
 }
-/*.sidebar-menu{
-    width: 230px;
+.breadcrumb{
+    padding-left: 0;
 }
-.navbar{
-    padding: 0;
-    height: 50px;
-
-}
-
-.sidebar-form{
-    width: 230px;
-}*/

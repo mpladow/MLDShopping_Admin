@@ -19,6 +19,7 @@ using MLDShopping_Admin.Hubs;
 using MLDShopping_Admin.Interfaces;
 using MLDShopping_Admin.Models;
 using MLDShopping_Admin.Services;
+using Newtonsoft.Json.Serialization;
 
 namespace MLDShopping_Admin
 {
@@ -59,6 +60,11 @@ namespace MLDShopping_Admin
             IMapper mapper = mappingConfig.CreateMapper();
             services.AddSingleton(mapper);
             services.AddScoped<IAuthentication, Authentication>();
+            services.AddControllers()
+                .AddNewtonsoftJson(options =>
+                {
+                    options.SerializerSettings.ContractResolver = new DefaultContractResolver();
+                });
             services.AddSignalR();
         }
 
