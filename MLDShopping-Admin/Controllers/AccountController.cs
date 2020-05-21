@@ -2,15 +2,21 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Dynamic.Core;
+using System.Net;
+using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Routing;
+using Microsoft.Azure.Storage;
+using Microsoft.Azure.Storage.Blob;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using MLDShopping_Admin.Components;
 using MLDShopping_Admin.Entities;
 using MLDShopping_Admin.Models;
@@ -25,10 +31,14 @@ namespace MLDShopping_Admin.Controllers
     {
         private readonly CMSShoppingContext _db;
         private readonly IMapper _mapper;
-        public AccountController(CMSShoppingContext db, IMapper mapper)
+        private readonly IConfiguration _configuration;
+        private readonly IAzureBlobService _azureBlobService;
+        public AccountController(CMSShoppingContext db, IMapper mapper, IConfiguration configuration, IAzureBlobService azureBlobService)
         {
             _db = db;
             _mapper = mapper;
+            _configuration = configuration;
+            _azureBlobService = azureBlobService;
         }
         public IActionResult Index()
         {
@@ -94,7 +104,7 @@ namespace MLDShopping_Admin.Controllers
             });
         }
 
-        public IActionResult Edit(int id, string message = "", string messageType = "")
+        public async Task<IActionResult> Edit(int id, string message = "", string messageType = "")
         {
             var model = new AccountVM();
             var entityInDb = _db.Accounts.Find(id);
@@ -106,6 +116,12 @@ namespace MLDShopping_Admin.Controllers
                 model.LastName = entityInDb.LastName;
                 model.Email = entityInDb.Email;
                 model.CreatedAt = entityInDb.CreatedAt.ToShortDateString();
+                // get existing file 
+                if (entityInDb.UserImageUrl != null)
+                {
+                    var filePath = await _azureBlobService.GetUriByNameAsync(entityInDb.UserImageUrl, "assets");
+                    model.UserImageUrl = filePath.AbsoluteUri;
+                }
                 var accountPermissions = _db.AccountPermissions.Where(ap => ap.AccountId == entityInDb.AccountId).ToList();
 
                 if (accountPermissions.Count > 0)
@@ -132,9 +148,12 @@ namespace MLDShopping_Admin.Controllers
             return View(model);
         }
         [HttpPost]
-        public IActionResult Edit(AccountVM account)
+        public async Task<IActionResult> Edit(AccountVM account, IFormFile ImageFile)
         {
             var message = new Message();
+
+
+
             if (!ModelState.IsValid)
             {
                 message.Text = "Please check your form details";
@@ -149,6 +168,9 @@ namespace MLDShopping_Admin.Controllers
                 if (entity == null)
                 {
                     entity = _mapper.Map<Account>(account);
+                    //update file url
+                    var fileName = await _azureBlobService.UploadSingleAsync(account.UserImage, "assets");
+                    entity.UserImageUrl = fileName;
                     if (!string.IsNullOrEmpty(account.Password))
                     {
                         var hashedPassword = hasher.HashPassword(account.Password);
@@ -166,6 +188,9 @@ namespace MLDShopping_Admin.Controllers
                         accountPermissionEntity.AccountId = entity.AccountId;
                         _db.AccountPermissions.Add(accountPermissionEntity);
                     });
+
+
+
                     message.Text = "Account has been created.";
                     message.MessageType = MessageType.Success;
 
@@ -176,6 +201,9 @@ namespace MLDShopping_Admin.Controllers
                     entity.FirstName = account.FirstName;
                     entity.LastName = account.LastName;
                     entity.Email = account.Email;
+                    //update file url
+                    var fileName = await _azureBlobService.UploadSingleAsync(account.UserImage, "assets");
+                    entity.UserImageUrl = fileName;
                     //entity = _mapper.Map<Account>(account);
 
                     if (!string.IsNullOrEmpty(account.Password))

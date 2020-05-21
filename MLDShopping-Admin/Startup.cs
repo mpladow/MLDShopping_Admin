@@ -58,14 +58,19 @@ namespace MLDShopping_Admin
                 config.AccessDeniedPath = "/identity/accessdenied";
             });
             IMapper mapper = mappingConfig.CreateMapper();
-            services.AddSingleton(mapper);
-            services.AddScoped<IAuthentication, Authentication>();
             services.AddControllers()
                 .AddNewtonsoftJson(options =>
                 {
                     options.SerializerSettings.ContractResolver = new DefaultContractResolver();
                 });
+            services.AddSingleton(mapper);
+            services.AddScoped<IAuthentication, Authentication>();
             services.AddSignalR();
+            services.AddHttpContextAccessor();
+            services.AddSingleton<IAzureBlobConnectionFactory, AzureBlobConnectionFactory>();
+            services.AddSingleton<IAzureBlobService, AzureBlobService>();
+            services.AddControllersWithViews().AddRazorRuntimeCompilation();
+            services.AddTransient<IUserDetailsService, UserDetailsService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
