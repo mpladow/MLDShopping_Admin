@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using MLDShopping_Admin.Entities;
 using System;
 using System.Collections.Generic;
@@ -21,7 +22,8 @@ namespace MLDShopping_Admin.Models
         public List<PermissionVM> Permissions { get; set; } = new List<PermissionVM>();
         public List<string> PermissionIds{ get; set; } = new List<string>();
         public List<SelectListItem> SelectList { get; set; } = new List<SelectListItem>();
-
+        public IFormFile UserImage { get; set; }
+        public string UserImageUrl { get; set; }
 
     }
 }

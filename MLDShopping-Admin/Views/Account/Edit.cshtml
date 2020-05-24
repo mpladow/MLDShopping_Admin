@@ -9,10 +9,10 @@
 }
 
 @*<section class="content-header">
-    <h1>
-        @title
-    </h1>
-</section>*@
+        <h1>
+            @title
+        </h1>
+    </section>*@
 
 <section class="content container-fluid">
     <div class="row mt-3">
@@ -21,7 +21,7 @@
                 <div class="card card-primary">
                     <!-- /.card-header -->
                     <!-- form start -->
-                    <form role="form" method="post">
+                    <form role="form" method="post" enctype="multipart/form-data">
                         <div class="card-body">
                             @if (!string.IsNullOrEmpty(message as string))
                             {
@@ -64,13 +64,16 @@
                                 <label for="userImage">User Image</label>
                                 <div class="input-group">
                                     <div class="custom-file">
-                                        <input type="file" class="custom-file-input" id="userImage">
-                                        <label class="custom-file-label" for="userImage">Choose file</label>
+                                        <input type="file" asp-for="UserImage" class="custom-file-input" id="UserImage" name="UserImage" onchange="DisplayFilesToUpload()">
+                                        <label class="custom-file-label" id="UserImageLabel" for="UserImage">Choose file</label>
                                     </div>
                                     <div class="input-group-append">
                                         <span class="input-group-text" id="">Upload</span>
                                     </div>
                                 </div>
+                            </div>
+                            <div>
+                                <img class="account-edit-image"src="@Model.UserImageUrl"/>
                             </div>
                             <div class="form-group" data-select2-id="Permissions">
 
@@ -139,8 +142,16 @@
                     password += String.fromCharCode(randomNumber);
                 }
                 return password;
-            }
+            };
+
         })
+        function DisplayFilesToUpload() {
+            let element = document.getElementById("UserImage");
+            for (var i = 0; i < element.files.length; i++) {
+                let fileName = element.files[i].name + "(" + element.files[i].size + " bytes)";
+                document.getElementById("UserImageLabel").innerHTML = fileName;
+            }
+        }
     </script>
 
 

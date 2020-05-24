@@ -25,6 +25,7 @@ namespace MLDShopping_Admin.Entities
         public string Email { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime? DeletedAt { get; set; }
+        public string UserImageUrl { get; set; }
 
         public virtual ICollection<AccountPermission> AccountPermissions { get; set; }
     }
