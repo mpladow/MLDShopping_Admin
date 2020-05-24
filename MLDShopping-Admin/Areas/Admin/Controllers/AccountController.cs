@@ -25,6 +25,7 @@ using Newtonsoft.Json;
 
 namespace MLDShopping_Admin.Controllers
 {
+    [Area("Admin")]
     [Authorize(Roles = "Admin")]
     [BreadcrumbActionFilter]
     public class AccountController : Controller

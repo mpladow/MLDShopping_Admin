@@ -11,6 +11,7 @@ using MLDShopping_Admin.Models;
 
 namespace MLDShopping_Admin.Controllers
 {
+    [Area("Dashboard")]
     [Authorize]
     [BreadcrumbActionFilter]
     public class HomeController : Controller

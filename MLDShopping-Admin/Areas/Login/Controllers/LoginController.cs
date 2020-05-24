@@ -12,6 +12,7 @@ using MLDShopping_Admin.Services;
 
 namespace MLDShopping_Admin.Controllers
 {
+    [Area("Login")]
     public class LoginController : Controller
     {
         public IAuthentication _auth { get; set; }
@@ -67,7 +68,7 @@ namespace MLDShopping_Admin.Controllers
 
             // set cookies here
             HttpContext.SignInAsync(accountPrincipal);
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Home", new { Area= "Dashboard" });
         }
 
         /// <summary>  

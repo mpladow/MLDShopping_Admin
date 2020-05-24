@@ -45,6 +45,7 @@ namespace MLDShopping_Admin
             options.UseSqlServer(Configuration.GetConnectionString("CMSShoppingContext")).UseLazyLoadingProxies().EnableSensitiveDataLogging());
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMvc(option => option.EnableEndpointRouting = false);
             services.AddAutoMapper(typeof(Startup));
             var mappingConfig = new MapperConfiguration(mc =>
             {
@@ -54,7 +55,7 @@ namespace MLDShopping_Admin
                 .AddCookie("CookieAuth", config =>
             {
                 config.Cookie.Name = "Grandmas.Cookie";
-                config.LoginPath = "/Login";
+                config.LoginPath = "/Login/Login";
                 config.AccessDeniedPath = "/identity/accessdenied";
             });
             IMapper mapper = mappingConfig.CreateMapper();
@@ -71,6 +72,8 @@ namespace MLDShopping_Admin
             services.AddSingleton<IAzureBlobService, AzureBlobService>();
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services.AddTransient<IUserDetailsService, UserDetailsService>();
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -97,7 +100,8 @@ namespace MLDShopping_Admin
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapControllerRoute("areas", "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapControllerRoute("default", "{area=Dashboard}/{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapHub<ChatHub>("/hubs/chatHub");
             });
             //app.UseMvc(routes =>

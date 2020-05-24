@@ -37,16 +37,19 @@ namespace MLDShopping_Admin.Components
 
             breadcrumbList.Add(new Breadcrumb
             {
-                Text = "Home",
+                Text = "Dashboard",
                 Action = "Index",
                 Controller = "Home", // Change this controller name to match your Home Controller.
+                Area = "Dashboard",
                 Active = true
             });
 
             if (context.HttpContext.Request.Path.HasValue)
             {
                 var pathSplit = context.HttpContext.Request.Path.Value.Split("/");
-
+                var area = context.RouteData.Values["area"].ToString();
+                var controllerText = context.RouteData.Values["controller"];
+                var action = context.RouteData.Values["action"];
                 for (var i = 0; i < pathSplit.Length; i++)
                 {
                     if (string.IsNullOrEmpty(pathSplit[i]))
@@ -57,13 +60,17 @@ namespace MLDShopping_Admin.Components
                     pathSplit[i] = pathSplit[i].UppercaseFirst();
 
                     // Check if first element is equal to our Index (portal) page.
-                    if (string.Compare(pathSplit[i], "Home", true) == 0)
+                    if (string.Compare(pathSplit[i], "Dashboard", true) == 0)
                     {
                         break;
                     }
+                    //Check if this is an area.
 
-                    // First check if path is a Controller class.
+
                     var controller = Extensions.GetControllerType(pathSplit[i] + "Controller");
+                    // First check if path is a Controller class.
+
+
 
                     // If this is a controller, does it have a default Index method? If so, that needs adding as a breadcrumb. Is the next path element called Index?
                     if (controller != null)
@@ -77,6 +84,7 @@ namespace MLDShopping_Admin.Components
                                 Text = Extensions.CamelCaseSpacing(pathSplit[i]),
                                 Action = "Index",
                                 Controller = pathSplit[i],
+                                Area = area,
                                 Active = true
                             });
 
@@ -99,7 +107,7 @@ namespace MLDShopping_Admin.Components
 
                         if (prevController != null)
                         {
-                            var method = prevController.GetMethods().FirstOrDefault(f=> f.Name == pathSplit[i]);
+                            var method = prevController.GetMethods().FirstOrDefault(f => f.Name == pathSplit[i]);
 
                             if (method != null)
                             {
@@ -108,7 +116,8 @@ namespace MLDShopping_Admin.Components
                                 {
                                     Text = Extensions.CamelCaseSpacing(pathSplit[i]),
                                     Action = pathSplit[i],
-                                    Controller = pathSplit[i - 1]
+                                    Controller = pathSplit[i - 1],
+                                    Area = area,
                                 });
                             }
                         }

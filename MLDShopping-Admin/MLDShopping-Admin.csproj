@@ -6675,4 +6675,18 @@
     <TypeScriptCompile Include="wwwroot\bower_components\moment\moment.d.ts" />
   </ItemGroup>
 
+
+  <ItemGroup>
+    <Folder Include="Areas\Admin\Models\" />
+    <Folder Include="Areas\CMS\Controllers\" />
+    <Folder Include="Areas\CMS\Data\" />
+    <Folder Include="Areas\CMS\Models\" />
+    <Folder Include="Areas\Dashboard\Data\" />
+    <Folder Include="Areas\Dashboard\Models\" />
+    <Folder Include="Areas\Login\Data\" />
+    <Folder Include="Areas\Login\Models\" />
+    <Folder Include="Areas\Products\Data\" />
+    <Folder Include="Areas\Products\Models\" />
+  </ItemGroup>
+
 </Project>
