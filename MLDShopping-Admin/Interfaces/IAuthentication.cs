@@ -7,10 +7,5 @@ using System.Threading.Tasks;
 
 namespace MLDShopping_Admin.Interfaces
 {
-    public interface IAuthentication
-    {
-        public AccountVM Authenticate(string username, string password);
-        public AccountVM Register(AccountVM account, string user);
 
-    }
 }

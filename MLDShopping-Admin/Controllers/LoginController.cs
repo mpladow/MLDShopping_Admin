@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MLDShopping_Admin.Entities;
@@ -37,36 +38,43 @@ namespace MLDShopping_Admin.Controllers
             {
                 return RedirectToAction("Index", new { message = "Your details were incorrect." });
             }
+            // Set Claims for user details
             var userClaims = new List<Claim>()
                 {
                     new Claim("FirstName", accountFromService.FirstName),
                     new Claim("LastName", accountFromService.LastName),
                     new Claim("Email", accountFromService.Email)
                 };
+            // SET cookies
+            Set("FirstName", accountFromService.FirstName, null);
+            Set("LastName", accountFromService.LastName, null);
+            Set("Email", accountFromService.Email, null);
             if (accountFromService.UserImageUrl != null)
             {
                 var fileUrl = await _azureBlobService.GetUriByNameAsync(accountFromService.UserImageUrl, "assets");
                 Set("UserImage", fileUrl.AbsoluteUri, null);
             }
-            //var accountClaims = new List<Claim>()
-            //    {
-            //        new Claim(ClaimTypes.Name, "Michael"),
-            //        new Claim(ClaimTypes.Email, "email@email.com")
-            //    };
+
+            // SET Roles
             var permissionsClaims = new List<Claim>();
             accountFromService.Permissions.ForEach(p =>
             {
                 var claim = new Claim(ClaimTypes.Role, p.Name);
                 permissionsClaims.Add(claim);
             });
-            var identity = new ClaimsIdentity(userClaims, "User");
-            //var account = new ClaimsIdentity(accountClaims, "Account");
-            var roles = new ClaimsIdentity(permissionsClaims, "Roles");
 
-            var accountPrincipal = new ClaimsPrincipal(new[] { identity, roles });
+            var userIdentity = new ClaimsIdentity(userClaims, "User");
+            var rolesIdentity = new ClaimsIdentity(permissionsClaims, "Roles");
 
-            // set cookies here
-            HttpContext.SignInAsync(accountPrincipal);
+            // set properties for auth
+            var authProperties = new AuthenticationProperties
+            {
+                ExpiresUtc = DateTime.Now.AddHours(1)
+            };
+
+            var accountPrincipal = new ClaimsPrincipal(new[] { userIdentity, rolesIdentity });
+
+            HttpContext.SignInAsync(accountPrincipal, authProperties);
             return RedirectToAction("Index", "Home");
         }
 

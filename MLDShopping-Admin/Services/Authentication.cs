@@ -20,6 +20,12 @@ using Newtonsoft.Json;
 
 namespace MLDShopping_Admin.Services
 {
+    public interface IAuthentication
+    {
+        public AccountVM Authenticate(string username, string password);
+        public AccountVM Register(AccountVM account, string user);
+    }
+
     public class Authentication : IAuthentication
     {
         private readonly CMSShoppingContext _db;
@@ -54,8 +60,6 @@ namespace MLDShopping_Admin.Services
                             Name = s.Permission.Name,
                             Description = s.Permission.Description
                         }).ToList();
-
-                    var xx = 1;
                 }
             }
             else

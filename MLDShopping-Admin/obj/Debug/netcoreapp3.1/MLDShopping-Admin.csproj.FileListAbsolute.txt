@@ -435,9 +435,9 @@ C:\Users\mplad\source\repos\MLDShopping-Admin\MLDShopping-Admin\bin\Debug\netcor
 C:\Users\mplad\source\repos\MLDShopping-Admin\MLDShopping-Admin\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.0\System.Runtime.Caching.dll
 C:\Users\mplad\source\repos\MLDShopping-Admin\MLDShopping-Admin\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.0\System.Runtime.Caching.dll
 C:\Users\mplad\source\repos\MLDShopping-Admin\MLDShopping-Admin\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
-C:\Users\mplad\source\repos\MLDShopping-Admin\MLDShopping-Admin\obj\Debug\netcoreapp3.1\MLDShopping-Admin.csprojAssemblyReference.cache
 C:\Users\mplad\source\repos\MLDShopping-Admin\MLDShopping-Admin\obj\Debug\netcoreapp3.1\MLDShopping-Admin.Views.pdb
 C:\Users\mplad\source\repos\MLDShopping-Admin\MLDShopping-Admin\obj\Debug\netcoreapp3.1\MLDShopping-Admin.csproj.CopyComplete
 C:\Users\mplad\source\repos\MLDShopping-Admin\MLDShopping-Admin\obj\Debug\netcoreapp3.1\staticwebassets\MLDShopping-Admin.StaticWebAssets.Manifest.cache
 C:\Users\mplad\source\repos\MLDShopping-Admin\MLDShopping-Admin\obj\Debug\netcoreapp3.1\staticwebassets\MLDShopping-Admin.StaticWebAssets.xml
 C:\Users\mplad\source\repos\MLDShopping-Admin\MLDShopping-Admin\obj\Debug\netcoreapp3.1\MLDShopping-Admin.genruntimeconfig.cache
+C:\Users\mplad\source\repos\MLDShopping-Admin\MLDShopping-Admin\obj\Debug\netcoreapp3.1\MLDShopping-Admin.csprojAssemblyReference.cache

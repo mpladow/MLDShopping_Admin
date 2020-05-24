@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -50,13 +51,14 @@ namespace MLDShopping_Admin
             {
                 mc.AddProfile(new MappingProfile());
             });
-            services.AddAuthentication("CookieAuth")
-                .AddCookie("CookieAuth", config =>
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(config =>
             {
-                config.Cookie.Name = "Grandmas.Cookie";
+                config.Cookie.Name = "MLDShoppingAdmin";
                 config.LoginPath = "/Login";
                 config.AccessDeniedPath = "/identity/accessdenied";
             });
+
             IMapper mapper = mappingConfig.CreateMapper();
             services.AddControllers()
                 .AddNewtonsoftJson(options =>
@@ -71,6 +73,13 @@ namespace MLDShopping_Admin
             services.AddSingleton<IAzureBlobService, AzureBlobService>();
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services.AddTransient<IUserDetailsService, UserDetailsService>();
+            //Configure Cookie Policy options
+            services.Configure<CookiePolicyOptions>(options =>
+            {
+                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
+                options.CheckConsentNeeded = context => true;
+                options.MinimumSameSitePolicy = SameSiteMode.None;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -99,6 +108,8 @@ namespace MLDShopping_Admin
             {
                 endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapHub<ChatHub>("/hubs/chatHub");
+                endpoints.MapControllers();
+                endpoints.MapRazorPages();
             });
             //app.UseMvc(routes =>
             //{
