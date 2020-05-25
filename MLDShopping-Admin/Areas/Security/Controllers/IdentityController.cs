@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace MLDShopping_Admin.Controllers
 {
+    [Area("Security")]
     public class IdentityController : Controller
     {
         public IActionResult Index()
@@ -16,7 +17,7 @@ namespace MLDShopping_Admin.Controllers
         public async Task<IActionResult> SignOut()
         {
             await HttpContext.SignOutAsync();
-            return RedirectToAction("Index", "Login");
+            return RedirectToAction("Index", "Login", new { area= "Login"});
         }
         public async Task<IActionResult> AccessDenied()
         {

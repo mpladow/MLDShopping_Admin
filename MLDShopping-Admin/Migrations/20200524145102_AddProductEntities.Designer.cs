@@ -4,14 +4,16 @@ using MLDShopping_Admin.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MLDShopping_Admin.Migrations
 {
     [DbContext(typeof(CMSShoppingContext))]
-    partial class CMSShoppingContextModelSnapshot : ModelSnapshot
+    [Migration("20200524145102_AddProductEntities")]
+    partial class AddProductEntities
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -101,7 +103,7 @@ namespace MLDShopping_Admin.Migrations
                         .HasColumnType("nvarchar(255)")
                         .HasMaxLength(255);
 
-                    b.Property<int>("ProductId")
+                    b.Property<int?>("ProductId")
                         .HasColumnType("int");
 
                     b.HasKey("MediaUrlId");
@@ -117,9 +119,6 @@ namespace MLDShopping_Admin.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<bool?>("DeletedAt")
-                        .HasColumnType("bit");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
@@ -166,41 +165,64 @@ namespace MLDShopping_Admin.Migrations
                     b.Property<DateTime?>("AddedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("CategoryId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime?>("DeletedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Description1")
+                    b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Description2")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
+                        .HasColumnType("nvarchar(255)")
+                        .HasMaxLength(255);
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(255)")
                         .HasMaxLength(255);
 
-                    b.Property<string>("ProductCode")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(255)")
-                        .HasMaxLength(255);
+                    b.HasKey("ProductId");
 
-                    b.Property<int?>("SubCategoryId")
+                    b.ToTable("Products");
+                });
+
+            modelBuilder.Entity("MLDShopping_Admin.Entities.ProductCategory", b =>
+                {
+                    b.Property<int>("ProductId")
                         .HasColumnType("int");
 
-                    b.HasKey("ProductId");
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductCategoryId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.HasKey("ProductId", "CategoryId");
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("Products");
+                    b.ToTable("ProductCategories");
+                });
+
+            modelBuilder.Entity("MLDShopping_Admin.Entities.ProductMediaUrl", b =>
+                {
+                    b.Property<int>("ProductMediaUrlId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("MediaUrlId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ProductMediaUrlId");
+
+                    b.HasIndex("MediaUrlId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("ProductMediaUrls");
                 });
 
             modelBuilder.Entity("MLDShopping_Admin.Entities.AccountPermission", b =>
@@ -226,16 +248,35 @@ namespace MLDShopping_Admin.Migrations
                 {
                     b.HasOne("MLDShopping_Admin.Entities.Product", "Product")
                         .WithMany("MediaUrls")
+                        .HasForeignKey("ProductId");
+                });
+
+            modelBuilder.Entity("MLDShopping_Admin.Entities.ProductCategory", b =>
+                {
+                    b.HasOne("MLDShopping_Admin.Entities.Models.Category", "Category")
+                        .WithMany("ProductCategory")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MLDShopping_Admin.Entities.Product", "Product")
+                        .WithMany("ProductCategory")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("MLDShopping_Admin.Entities.Product", b =>
+            modelBuilder.Entity("MLDShopping_Admin.Entities.ProductMediaUrl", b =>
                 {
-                    b.HasOne("MLDShopping_Admin.Entities.Models.Category", "Category")
-                        .WithMany("Products")
-                        .HasForeignKey("CategoryId")
+                    b.HasOne("MLDShopping_Admin.Entities.MediaUrl", "MediaUrl")
+                        .WithMany()
+                        .HasForeignKey("MediaUrlId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MLDShopping_Admin.Entities.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

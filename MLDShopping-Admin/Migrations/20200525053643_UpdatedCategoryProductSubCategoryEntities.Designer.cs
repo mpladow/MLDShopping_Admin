@@ -4,14 +4,16 @@ using MLDShopping_Admin.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MLDShopping_Admin.Migrations
 {
     [DbContext(typeof(CMSShoppingContext))]
-    partial class CMSShoppingContextModelSnapshot : ModelSnapshot
+    [Migration("20200525053643_UpdatedCategoryProductSubCategoryEntities")]
+    partial class UpdatedCategoryProductSubCategoryEntities
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -200,7 +202,31 @@ namespace MLDShopping_Admin.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("Products");
+                    b.HasIndex("SubCategoryId");
+
+                    b.ToTable("Product");
+                });
+
+            modelBuilder.Entity("MLDShopping_Admin.Entities.SubCategory", b =>
+                {
+                    b.Property<int>("SubCategoryId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(255)")
+                        .HasMaxLength(255);
+
+                    b.HasKey("SubCategoryId");
+
+                    b.HasIndex("CategoryId");
+
+                    b.ToTable("SubCategory");
                 });
 
             modelBuilder.Entity("MLDShopping_Admin.Entities.AccountPermission", b =>
@@ -235,6 +261,19 @@ namespace MLDShopping_Admin.Migrations
                 {
                     b.HasOne("MLDShopping_Admin.Entities.Models.Category", "Category")
                         .WithMany("Products")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MLDShopping_Admin.Entities.SubCategory", "SubCategory")
+                        .WithMany()
+                        .HasForeignKey("SubCategoryId");
+                });
+
+            modelBuilder.Entity("MLDShopping_Admin.Entities.SubCategory", b =>
+                {
+                    b.HasOne("MLDShopping_Admin.Entities.Models.Category", "Category")
+                        .WithMany("SubCategories")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

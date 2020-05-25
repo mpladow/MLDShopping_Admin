@@ -28,5 +28,8 @@ namespace MLDShopping_Admin.Entities
         public string UserImageUrl { get; set; }
 
         public virtual ICollection<AccountPermission> AccountPermissions { get; set; }
+        public virtual ICollection<AccountPermission> Permissions { get; set; }
+
+
     }
 }

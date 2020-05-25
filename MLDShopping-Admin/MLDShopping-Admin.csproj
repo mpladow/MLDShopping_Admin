@@ -15,6 +15,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="Areas\Products\Models\SubCategoryVM.cs" />
+    <Compile Remove="Entities\Models\SubCategory.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Remove="compilerconfig.json" />
   </ItemGroup>
 
@@ -6627,7 +6632,6 @@
     <None Include="wwwroot\dist\css\adminlte.css.map" />
     <None Include="wwwroot\dist\css\adminlte.min.css.map" />
     <None Include="wwwroot\dist\js\adminlte.js" />
-    <None Include="wwwroot\dist\js\adminlte.min.js" />
     <None Include="wwwroot\dist\js\demo.js" />
     <None Include="wwwroot\dist\js\pages\dashboard.js" />
     <None Include="wwwroot\dist\js\pages\dashboard2.js" />
@@ -6683,10 +6687,12 @@
     <Folder Include="Areas\CMS\Models\" />
     <Folder Include="Areas\Dashboard\Data\" />
     <Folder Include="Areas\Dashboard\Models\" />
+    <Folder Include="Areas\Inventory\Data\" />
+    <Folder Include="Areas\Inventory\Models\" />
     <Folder Include="Areas\Login\Data\" />
     <Folder Include="Areas\Login\Models\" />
-    <Folder Include="Areas\Products\Data\" />
-    <Folder Include="Areas\Products\Models\" />
+    <Folder Include="Areas\Security\Data\" />
+    <Folder Include="Areas\Security\Models\" />
   </ItemGroup>
 
 </Project>

@@ -65,7 +65,7 @@
                 serverSide: true,
                 autoWidth: true,
                 ajax: {
-                    url: "/Account/Read",
+                    url: "@Url.Action("Read", "Account", new { area = "Admin"})",
                     type: "POST",
                     contentType: "application/json",
                     data: function (d) {
@@ -89,7 +89,7 @@
                     {
                         data: "AccountId",
                         render: function (data, type, account) {
-                            return '<a href="/account/edit/' + data + '">Edit</a>';
+                            return '<a href="/admin/account/edit/' + data + '">Edit</a>';
                         },
                         "autoWidth": true
                     }

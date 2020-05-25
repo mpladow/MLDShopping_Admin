@@ -19,9 +19,17 @@
         <div class="col-12">
             <div class="row">
                 <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">General</h3>
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                                <i class="fa fa-minus"></i>
+                            </button>
+                        </div>
+                    </div>
                     <!-- /.card-header -->
                     <!-- form start -->
-                    <form role="form" method="post" enctype="multipart/form-data">
+                    <form role="form" method="post" enctype="multipart/form-data" asp-area="Admin" asp-controller="Account" asp-action="Edit">
                         <div class="card-body">
                             @if (!string.IsNullOrEmpty(message as string))
                             {
@@ -103,10 +111,10 @@
 
                         <div class="card-footer">
                             <button type="submit" class="btn btn-primary">@(isNew? "Submit" : "Save")</button>
-                            <button type="submit" class="btn btn-danger" formaction="/account/delete/@Model.AccountId">Delete</button>
+                            <button type="button" class="btn btn-danger" onclick="window.location.href='@Url.Action("Delete", "Account", new { area="Admin", id = Model.AccountId})';">Delete</button>
                             @if (Model.AccountId > 0)
                             {
-                                <button type="button" class="btn btn-default" onclick="window.location.href = '@Url.Action("Edit", "Account", new { id= 0})';">New</button>
+                                <button type="button" class="btn btn-default" onclick="window.location.href='@Url.Action("Edit", "Account", new { area="Admin", id= 0})';">New</button>
                             }
                         </div>
                     </form>
@@ -118,6 +126,7 @@
 </section>
 @section scripts {
     <!-- DataTables -->
+
     <script language="javascript">
         $(document).ready(function () {
             $('#PermissionIds').select2();
