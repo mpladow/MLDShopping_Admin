@@ -127,12 +127,27 @@
         <div class="content-wrapper">
             <!-- Content Header (Page header) -->
             <section class="content-header">
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h1>
+                            @ViewData["PageHeader"]
+                            <small>@ViewData["Description"]</small>
+                        </h1>
+                    </div>
+                    @*<div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active">Dashboard v1</li>
+                </ol>
+            </div>*@
+                </div>
                 <div class="row">
                     <div class="col-12">
                         @if (ViewBag.Breadcrumbs != null)
                         {
                             <nav aria-label="breadcrumb">
-                                <ol class="breadcrumb bg-white justify-content-center justify-content-md-start justify-content-lg-start justify-content-xl-start">
+                                <ol class="breadcrumb float-sm-left">
                                     @foreach (var breadcrumb in ViewBag.Breadcrumbs as List<MLDShopping_Admin.Models.Breadcrumb>)
                                     {
                                         if (breadcrumb.Active)
@@ -148,20 +163,6 @@
                             </nav>
                         }
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-6">
-                        <h1>
-                            @ViewData["PageHeader"]
-                            <small>@ViewData["Description"]</small>
-                        </h1>
-                    </div>
-                    @*<div class="col-sm-6">
-                            <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item active">Dashboard v1</li>
-                            </ol>
-                        </div>*@
                 </div>
 
             </section>
