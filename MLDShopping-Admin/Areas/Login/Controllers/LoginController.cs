@@ -31,7 +31,7 @@ namespace MLDShopping_Admin.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Index(string username, string password)
+        public async Task<IActionResult> Index(string username, string password, bool rememberMe)
         {
             var accountFromService = _auth.Authenticate(username, password);
             if (accountFromService == null)

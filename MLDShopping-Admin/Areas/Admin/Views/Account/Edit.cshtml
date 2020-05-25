@@ -15,9 +15,9 @@
     </section>*@
 
 <section class="content container-fluid">
-    <div class="row mt-3">
-        <div class="col-12">
-            <div class="row">
+    <form role="form" method="post" enctype="multipart/form-data" asp-area="Admin" asp-controller="Account" asp-action="Edit">
+        <div class="row mt-3">
+            <div class="col-6">
                 <div class="card card-primary">
                     <div class="card-header">
                         <h3 class="card-title">General</h3>
@@ -29,104 +29,102 @@
                     </div>
                     <!-- /.card-header -->
                     <!-- form start -->
-                    <form role="form" method="post" enctype="multipart/form-data" asp-area="Admin" asp-controller="Account" asp-action="Edit">
-                        <div class="card-body">
-                            @if (!string.IsNullOrEmpty(message as string))
-                            {
-                                <div class="callout callout-@messageType alert-dismissible">
-                                    <p>@message</p>
-                                </div>
-                            }
-                            @Html.HiddenFor(x => x.AccountId)
-                            @if (Model.AccountId != 0)
-                            {
-                                <div class="form-group">
-                                    <label>Account Id</label>
-                                    <span class="form-control" id="AccountId">@Model.AccountId</span>
-                                </div>
-                            }
-                            <div class="form-group">
-                                <label asp-for="Email">Email address</label>
-                                <input asp-for="Email" class="form-control" id="Email" placeholder="Enter email" required>
+                    <div class="card-body">
+                        @if (!string.IsNullOrEmpty(message as string))
+                        {
+                            <div class="callout callout-@messageType alert-dismissible">
+                                <p>@message</p>
                             </div>
+                        }
+                        @Html.HiddenFor(x => x.AccountId)
+                        @if (Model.AccountId != 0)
+                        {
                             <div class="form-group">
-                                <label asp-for="FirstName">First Name</label>
-                                <input asp-for="FirstName" type="text" class="form-control" id="firstname" placeholder="Enter First Name" required>
+                                <label>Account Id</label>
+                                <span class="form-control" id="AccountId">@Model.AccountId</span>
                             </div>
-                            <div class="form-group">
-                                <label asp-for="LastName">Last Name</label>
-                                <input asp-for="LastName" type="text" class="form-control" id="lastname" placeholder="Enter Last Name" required>
-                            </div>
+                        }
+                        <div class="form-group">
+                            <label asp-for="Email">Email address</label>
+                            <input asp-for="Email" class="form-control" id="Email" placeholder="Enter email" required>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="FirstName">First Name</label>
+                            <input asp-for="FirstName" type="text" class="form-control" id="firstname" placeholder="Enter First Name" required>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="LastName">Last Name</label>
+                            <input asp-for="LastName" type="text" class="form-control" id="lastname" placeholder="Enter Last Name" required>
+                        </div>
 
-                            <div class="form-group">
-                                <label asp-for="Password">Password</label>
-                                <div class="input-group">
-                                    <input asp-for="Password" type="password" class="form-control" id="Password" placeholder="Password">
-                                    <div class="input-group-append">
-                                        <button class="btn btn-outline-secondary" type="button" id="btnGeneratePassword">Generate</button>
-                                    </div>
+                        <div class="form-group">
+                            <label asp-for="Password">Password</label>
+                            <div class="input-group">
+                                <input asp-for="Password" type="password" class="form-control" id="Password" placeholder="Password">
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-secondary" type="button" id="btnGeneratePassword">Generate</button>
                                 </div>
                             </div>
+                        </div>
 
-                            <div class="form-group">
-                                <label for="userImage">User Image</label>
-                                <div class="input-group">
-                                    <div class="custom-file">
-                                        <input type="file" asp-for="UserImage" class="custom-file-input" id="UserImage" name="UserImage" onchange="DisplayFilesToUpload()">
-                                        <label class="custom-file-label" id="UserImageLabel" for="UserImage">Choose file</label>
-                                    </div>
-                                    <div class="input-group-append">
-                                        <span class="input-group-text" id="">Upload</span>
-                                    </div>
+                        <div class="form-group">
+                            <label for="userImage">User Image</label>
+                            <div class="input-group">
+                                <div class="custom-file">
+                                    <input type="file" asp-for="UserImage" class="custom-file-input" id="UserImage" name="UserImage" onchange="DisplayFilesToUpload()">
+                                    <label class="custom-file-label" id="UserImageLabel" for="UserImage">Choose file</label>
+                                </div>
+                                <div class="input-group-append">
+                                    <span class="input-group-text" id="">Upload</span>
                                 </div>
                             </div>
-                            <div>
-                                <label>Current</label>
-                                <img class="account-edit-image" src="@Model.UserImageUrl" />
-                            </div>
-                            <div>
-                                <label>New Image</label>
-                                <img class="account-edit-image" id="imagePreview" src="" style="display: none" />
-                            </div>
-                            <div class="form-group" data-select2-id="Permissions">
+                        </div>
+                        <div>
+                            <label>Current</label>
+                            <img class="account-edit-image" src="@Model.UserImageUrl" />
+                        </div>
+                        <div>
+                            <label>New Image</label>
+                            <img class="account-edit-image" id="imagePreview" src="" style="display: none" />
+                        </div>
+                        <div class="form-group" data-select2-id="Permissions">
 
-                                <label asp-for="Permissions">
+                            <label asp-for="Permissions">
+                                Select Permissions
+                            </label>
+                            @Html.ListBoxFor(m => m.PermissionIds, Model.SelectList, new { @class = "form-control m-select2 js-states", multiple = "multiple", id = "PermissionIds" })
+
+
+                            @*<label asp-for="Permissions">
                                     Select Permissions
-                                </label>
-                                @Html.ListBoxFor(m => m.PermissionIds, Model.SelectList, new { @class = "form-control m-select2 js-states", multiple = "multiple", id = "PermissionIds" })
-
-
-                                @*<label asp-for="Permissions">
-                                        Select Permissions
-                                        <select asp-for="Permissions" class="js-example-basic-multiple js-states form-control" multiple="multiple">
-                                            @foreach (var p in Model.SelectList)
-                                            {
-                                                <option value="@p.Value">@p.Text</option>
-                                            }
-                                        </select>
-                                    </label>*@
-                            </div>
+                                    <select asp-for="Permissions" class="js-example-basic-multiple js-states form-control" multiple="multiple">
+                                        @foreach (var p in Model.SelectList)
+                                        {
+                                            <option value="@p.Value">@p.Text</option>
+                                        }
+                                    </select>
+                                </label>*@
                         </div>
-                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card-body -->
 
-                        <div class="card-footer">
-                            <button type="submit" class="btn btn-primary">@(isNew? "Submit" : "Save")</button>
-                            <button type="button" class="btn btn-danger" onclick="window.location.href='@Url.Action("Delete", "Account", new { area="Admin", id = Model.AccountId})';">Delete</button>
-                            @if (Model.AccountId > 0)
-                            {
-                                <button type="button" class="btn btn-default" onclick="window.location.href='@Url.Action("Edit", "Account", new { area="Admin", id= 0})';">New</button>
-                            }
-                        </div>
-                    </form>
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-primary">@(isNew? "Submit" : "Save")</button>
+                        <button type="button" class="btn btn-danger" onclick="window.location.href='@Url.Action("Delete", "Account", new { area="Admin", id = Model.AccountId})';">Delete</button>
+                        @if (Model.AccountId > 0)
+                        {
+                            <button type="button" class="btn btn-default" onclick="window.location.href='@Url.Action("Edit", "Account", new { area="Admin", id= 0})';">New</button>
+                        }
+                    </div>
                 </div>
+
             </div>
         </div>
-    </div>
+    </form>
 
 </section>
 @section scripts {
     <!-- DataTables -->
-
     <script language="javascript">
         $(document).ready(function () {
             $('#PermissionIds').select2();

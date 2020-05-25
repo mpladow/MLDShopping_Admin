@@ -19,17 +19,9 @@
     <section class="background-header">
     </section>
 
-    <div class="container" style="margin-top: 50px">
+    <div class="login-page">
         <partial name="_CookieConsentPartial" />
-        <div class="row">
-            <div class="col-md-2 d-none d-md-block bg-light sidebar">
-            </div>
-            <main role="main" class="pb-1 pt-4 col-12">
-                <div class="container-fluid">
-                    @RenderBody()
-                </div>
-            </main>
-        </div>
+        @RenderBody()
     </div>
 
     <footer class="border-top footer text-muted">

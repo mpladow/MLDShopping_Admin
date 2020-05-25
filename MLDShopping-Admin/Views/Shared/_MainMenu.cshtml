@@ -1,33 +1,38 @@
-﻿<ul class="sidebar-menu" data-widget="tree">
-    <li class="header">MAIN</li>
-    <!-- Optionally, you can add icons to the links -->
-    <li class="active"><a asp-area="Dashboard" asp-controller="Home" asp-action="Index"><i class="fa fa-tachometer"></i> <span>Dashboard</span></a></li>
-    <li class="treeview">
-        <a href="#">
-            <i class="fa fa-link"></i> <span>Inventory</span>
-            <span class="pull-right-container">
-                <i class="fa fa-angle-left pull-right"></i>
-            </span>
-        </a>
-        <ul class="treeview-menu">
-            <li><a asp-area="Inventory" asp-controller="Inventory" asp-action="Index">Current Inventory</a></li>
-            <li><a href="#">Receive Stock</a></li>
-        </ul>
-    </li>
-    <li class="treeview">
-        <a href="#">
-            <i class="fa fa-cube"></i> <span>Products</span>
-            <span class="pull-right-container">
-                <i class="fa fa-angle-left pull-right"></i>
-            </span>
-        </a>
-        <ul class="treeview-menu">
-            <li><a asp-area="Products" asp-controller="Products" asp-action="Index">All Products</a></li>
-            <li><a asp-area="Products" asp-controller="Category" asp-action="Index">Category Management</a></li>
-        </ul>
-    </li>
-    <li class="header">ADMIN</li>
-    <li><a asp-area="Admin" asp-controller="Account" asp-action="Index"><i class="fa fa-user"></i> <span>Accounts</span></a></li>
+﻿<nav class="mt-2">
+    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordian="false">
+        <li class="nav-header">MAIN</li>
+        <li class="nav-item active">
+            <a class="nav-link" asp-area="Dashboard" asp-controller="Home" asp-action="Index"><i class="fa fa-tachometer"></i> <span>Dashboard</span></a>
+        </li>
+        <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+                <i class="fa fa-link"></i> <span>Inventory</span>
+                <span class="pull-right-container">
+                    <i class="fa fa-angle-left pull-right"></i>
+                </span>
+            </a>
+            <ul class="nav nav-treeview">
+                <li class="nav-item"><a class="nav-link" asp-area="Products" asp-controller="Products" asp-action="Index">All Products</a></li>
+                <li class="nav-item"><a class="nav-link" asp-area="Products" asp-controller="Category" asp-action="Index">Category Management</a></li>
+            </ul>
+        </li>
+        <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+                <i class="fa fa-cube"></i> <span>Products</span>
+                <span class="pull-right-container">
+                    <i class="fa fa-angle-left pull-right"></i>
+                </span>
+            </a>
+            <ul class="nav nav-treeview">
+                <li class="nav-item"><a class="nav-link" asp-area="Products" asp-controller="Products" asp-action="Index">All Products</a></li>
+                <li class="nav-item"><a class="nav-link" asp-area="Products" asp-controller="Category" asp-action="Index">Category Management</a></li>
+            </ul>
+        </li>
+        <li class="nav-header">ADMIN</li>
+        <li>
+            <a class="nav-link" asp-area="Admin" asp-controller="Account" asp-action="Index"><i class="fa fa-user"></i> <span>Accounts</span></a>
+        </li>
 
+    </ul>
+</nav>
 
-</ul>
