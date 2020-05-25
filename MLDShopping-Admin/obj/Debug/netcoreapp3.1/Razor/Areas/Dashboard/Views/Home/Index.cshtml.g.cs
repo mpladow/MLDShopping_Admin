@@ -12,7 +12,22 @@ namespace AspNetCore
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.Rendering;
     using Microsoft.AspNetCore.Mvc.ViewFeatures;
+#nullable restore
+#line 1 "C:\Users\mplad\source\repos\MLDShopping-Admin\MLDShopping-Admin\Areas\Dashboard\Views\_ViewImports.cshtml"
+using MLDShopping_Admin;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 2 "C:\Users\mplad\source\repos\MLDShopping-Admin\MLDShopping-Admin\Areas\Dashboard\Views\_ViewImports.cshtml"
+using MLDShopping_Admin.Models;
+
+#line default
+#line hidden
+#nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"af4145908a610d0966ffe7ef59386a5e847b49f3", @"/Areas/Dashboard/Views/Home/Index.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"e003c84cb468250d08076c5ee79fe52094a0abf4", @"/Areas/Dashboard/Views/_ViewImports.cshtml")]
     public class Areas_Dashboard_Views_Home_Index : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<dynamic>
     {
         #pragma warning disable 1998

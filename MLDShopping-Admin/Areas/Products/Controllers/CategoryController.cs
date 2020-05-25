@@ -27,6 +27,7 @@ using Newtonsoft.Json;
 namespace MLDShopping_Admin.Areas.Products.Controllers
 {
     [Area("Products")]
+    [BreadcrumbActionFilter]
     public class CategoryController : Controller
     {
         private CMSShoppingContext _db;

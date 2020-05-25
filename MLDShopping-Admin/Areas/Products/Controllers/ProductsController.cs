@@ -26,6 +26,7 @@ using Newtonsoft.Json;
 namespace MLDShopping_Admin.Areas.Products.Controllers
 {
     [Area("Products")]
+    [BreadcrumbActionFilter]
     public class ProductsController : Controller
     {
         private readonly CMSShoppingContext _db;
@@ -42,7 +43,7 @@ namespace MLDShopping_Admin.Areas.Products.Controllers
         public IActionResult Index()
         {
             ViewBag.PageHeader = "Products";
-            //ViewBag.Description = "Do account stuff here";
+            ViewBag.Description = "Manage your sellable items here.";
             return View();
         }
         public JsonResult Read([FromBody]DataTableAjaxPostModel model)
@@ -165,16 +166,20 @@ namespace MLDShopping_Admin.Areas.Products.Controllers
                     _db.Add(entity);
                     _db.SaveChanges();
                     //update file url
-                    foreach (var url in product.MediaFiles)
+                    if (product.MediaFiles != null)
                     {
-                        var fileName = await _azureBlobService.UploadSingleAsync(url, "products");
-                        var mediaUrlModel = new MediaUrl();
-                        mediaUrlModel.ProductId = entity.ProductId;
-                        mediaUrlModel.MediaPath = fileName;
-                        mediaUrlModel.IsImage = true; // we will assume all files uploaded will be images
-                        _db.MediaUrls.Add(mediaUrlModel);
+
+                        foreach (var url in product.MediaFiles)
+                        {
+                            var fileName = await _azureBlobService.UploadSingleAsync(url, "products");
+                            var mediaUrlModel = new MediaUrl();
+                            mediaUrlModel.ProductId = entity.ProductId;
+                            mediaUrlModel.MediaPath = fileName;
+                            mediaUrlModel.IsImage = true; // we will assume all files uploaded will be images
+                            _db.MediaUrls.Add(mediaUrlModel);
+                        }
+                        _db.SaveChanges();
                     }
-                    _db.SaveChanges();
 
                     message.Text = "Product has been created.";
                     message.MessageType = MessageType.Success;
@@ -227,5 +232,13 @@ namespace MLDShopping_Admin.Areas.Products.Controllers
         //    }
         //    return RedirectToAction("Edit", new { id = 0, message = message.Text, messageType = message.MessageType });
         //}
+        public List<SelectListItem> GetCategoriesData()
+        {
+            return _db.Categories.Select(p => new SelectListItem()
+            {
+                Value = p.CategoryId.ToString(),
+                Text = p.Name
+            }).ToList();
+        }
     }
 }

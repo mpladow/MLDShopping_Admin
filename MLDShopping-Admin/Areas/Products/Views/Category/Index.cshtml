@@ -4,37 +4,33 @@
     ViewData["Title"] = "Category";
 }
 
-
-
-<section class="content container-fluid">
-    <div class="row mt-3">
-        <div class="col-12">
-            <div class="row">
+    <section class="content container-fluid">
+        <div class="row mt-3">
+            <div class="col-12">
                 <div class="card w-100">
                     <div class="card-body p-4">
-                        <div class="row mt-3">
-                            <button class="btn btn-primary btn-sm" onclick="window.location.href = '@Url.Action("Edit", "Category", new { Areas = "Products" })';">Add New Category</button>
-                        </div>
-                        <div class="row mt-3">
-                            <table class="table table-light table-bordered table-hover table-sm" id="tblCategories">
-                                <thead class="thead-dark">
-                                    <tr>
-                                        <th>CategoryId</th>
-                                        <th>Name</th>
-                                        <th>Description</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                </tbody>
-                            </table>
-                        </div>
+                        <button class="btn btn-primary btn-sm mb-3" onclick="window.location.href = '@Url.Action("Edit", "Category", new { Areas = "Products" })';">Add New Category</button>
+
+                        <table class="table table-bordered table-hover dataTable dtr-inline mt-3" id="tblCategories" width="100%">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th>Category Id</th>
+                                    <th>Name</th>
+                                    <th>Description</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+
                     </div>
                 </div>
+
             </div>
         </div>
-    </div>
 
-</section>
+    </section>
 
 @section scripts {
     <!-- DataTables -->

@@ -1,7 +1,7 @@
 ﻿
 @{
-    @model List<MLDShopping_Admin.Models.AccountVM>;
-    ViewData["Title"] = "Accounts";
+    @model List<MLDShopping_Admin.Models.ProductVM>;
+    ViewData["Title"] = "Products";
 }
 
 <section class="content container-fluid">
@@ -20,6 +20,7 @@
                                 <th>Category</th>
                                 <th>Deleted</th>
                                 <th>Active</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -34,6 +35,8 @@
 
 </section>
 
+
+
 @section scripts {
     <!-- DataTables -->
     <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.5/js/jquery.dataTables.js"></script>
@@ -46,10 +49,11 @@
                 serverSide: true,
                 autoWidth: true,
                 ajax: {
-                    url: "@Url.Action("Read", "Account", new { area = "Products" })",
+                    url: "@Url.Action("Read", "Products", new { area = "Products" })",
                     type: "POST",
                     contentType: "application/json",
                     data: function (d) {
+                        console.log(d)
                         return JSON.stringify(d);
                     },
                     dataSrc: function (json) {
@@ -61,17 +65,16 @@
                     }
                 },
                 columns: [
-                    { data: "ProductId", "autoWidth": true },
-                    { data: "ProductCode", "autoWidth": true },
-                    { data: "Name", "autoWidth": true },
-                    { data: "Category", "autoWidth": true },
-                    { data: "SubCategory", "autoWidth": true },
-                    { data: "Deleted", "autoWidth": true },
-                    { data: "Active", "autoWidth": true },
+                    { data: "ProductId"},
+                    { data: "ProductCode"},
+                    { data: "Name" },
+                    { data: "Category" },
+                    { data: "Deleted"},
+                    { data: "Active" },
                     {
                         data: "ProductId",
                         render: function (data, type, account) {
-                            return '<a href="/products/product/edit/' + data + '">Edit</a>';
+                            return '<a href="/products/products/edit/' + data + '">Edit</a>';
                         },
                         "autoWidth": true
                     }

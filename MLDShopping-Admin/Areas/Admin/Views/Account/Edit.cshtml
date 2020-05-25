@@ -15,21 +15,21 @@
     </section>*@
 
 <section class="content container-fluid">
-    <form role="form" method="post" enctype="multipart/form-data" asp-area="Admin" asp-controller="Account" asp-action="Edit">
-        <div class="row mt-3">
-            <div class="col-6">
-                <div class="card card-primary">
-                    <div class="card-header">
-                        <h3 class="card-title">General</h3>
-                        <div class="card-tools">
-                            <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
-                                <i class="fa fa-minus"></i>
-                            </button>
-                        </div>
+    <div class="row mt-3">
+        <div class="col-6">
+            <div class="card card-primary">
+                <div class="card-header">
+                    <h3 class="card-title">General</h3>
+                    <div class="card-tools">
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                            <i class="fa fa-minus"></i>
+                        </button>
                     </div>
-                    <!-- /.card-header -->
-                    <!-- form start -->
-                    <div class="card-body">
+                </div>
+                <!-- /.card-header -->
+                <!-- form start -->
+                <div class="card-body">
+                    <form role="form" method="post" enctype="multipart/form-data">
                         @if (!string.IsNullOrEmpty(message as string))
                         {
                             <div class="callout callout-@messageType alert-dismissible">
@@ -105,22 +105,22 @@
                                     </select>
                                 </label>*@
                         </div>
-                    </div>
-                    <!-- /.card-body -->
-
-                    <div class="card-footer">
-                        <button type="submit" class="btn btn-primary">@(isNew? "Submit" : "Save")</button>
-                        <button type="button" class="btn btn-danger" onclick="window.location.href='@Url.Action("Delete", "Account", new { area="Admin", id = Model.AccountId})';">Delete</button>
-                        @if (Model.AccountId > 0)
-                        {
-                            <button type="button" class="btn btn-default" onclick="window.location.href='@Url.Action("Edit", "Account", new { area="Admin", id= 0})';">New</button>
-                        }
-                    </div>
+                    </form>
                 </div>
+                <!-- /.card-body -->
 
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary" asp-area="Admin" asp-controller="Account" asp-action="Edit">@(isNew? "Submit" : "Save")</button>
+                    <button type="button" class="btn btn-danger" onclick="window.location.href='@Url.Action("Delete", "Account", new { area="Admin", id = Model.AccountId})';">Delete</button>
+                    @if (Model.AccountId > 0)
+                    {
+                        <button type="button" class="btn btn-default" onclick="window.location.href='@Url.Action("Edit", "Account", new { area="Admin", id= 0})';">New</button>
+                    }
+                </div>
             </div>
+
         </div>
-    </form>
+    </div>
 
 </section>
 @section scripts {
